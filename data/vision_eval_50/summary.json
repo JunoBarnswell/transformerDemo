@@ -1,0 +1,35 @@
+{
+  "source_repo": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection",
+  "source_tree_sha": "351bee21b56bbf97a1e1d18262bceb202eb7ef41",
+  "classes": [
+    "crazing",
+    "inclusion",
+    "patches",
+    "pitted_surface",
+    "rolled-in_scale",
+    "scratches"
+  ],
+  "images": 300,
+  "train_images": 240,
+  "test_images": 60,
+  "boxes": 681,
+  "boxes_by_split_class": {
+    "train/crazing": 75,
+    "train/inclusion": 161,
+    "train/patches": 100,
+    "train/pitted_surface": 53,
+    "train/rolled-in_scale": 84,
+    "train/scratches": 72,
+    "test/crazing": 22,
+    "test/inclusion": 36,
+    "test/patches": 22,
+    "test/pitted_surface": 12,
+    "test/rolled-in_scale": 24,
+    "test/scratches": 20
+  },
+  "box_area_fraction": {
+    "min": 0.0027,
+    "max": 0.990025,
+    "mean": 0.17407041116005872
+  }
+}

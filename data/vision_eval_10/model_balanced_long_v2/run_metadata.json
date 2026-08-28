@@ -1,0 +1,59 @@
+{
+  "config_file": "C:\\Users\\kuo13\\Desktop\\transformerDemo\\data\\vision_eval_10\\train_balanced_long.yaml",
+  "train_manifest": "C:\\Users\\kuo13\\Desktop\\transformerDemo\\data\\vision_eval_10\\generated_train_v2\\manifest.jsonl",
+  "validation_manifest": null,
+  "seed": 42,
+  "train_samples": 144,
+  "validation_samples": 0,
+  "max_object_area_fraction": 0.9168,
+  "resolved_vision_config": {
+    "input_size": 640,
+    "num_classes": 6,
+    "class_names": [
+      "crazing",
+      "inclusion",
+      "patches",
+      "pitted_surface",
+      "rolled-in_scale",
+      "scratches"
+    ],
+    "segmentation_classes": 2,
+    "backbone_channels": [
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "backbone_depths": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "neck_channels": [
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "use_p5": true,
+    "detect_levels": [
+      "P2",
+      "P3",
+      "P4",
+      "P5"
+    ],
+    "detection_hidden_channels": 32,
+    "reg_max": 16,
+    "confidence_threshold": 0.05,
+    "nms_threshold": 0.5,
+    "max_detections": 100,
+    "tile_threshold_px": 4.0
+  },
+  "task": "detection",
+  "initialization_mode": "random",
+  "fewshot_stage": "f4"
+}

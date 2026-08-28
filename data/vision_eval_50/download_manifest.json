@@ -1,0 +1,2415 @@
+{
+  "source_repo": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection",
+  "tree_sha": "351bee21b56bbf97a1e1d18262bceb202eb7ef41",
+  "classes": [
+    "crazing",
+    "inclusion",
+    "patches",
+    "pitted_surface",
+    "rolled-in_scale",
+    "scratches"
+  ],
+  "samples_per_class": 50,
+  "samples": [
+    {
+      "stem": "crazing_1",
+      "class_name": "crazing",
+      "source_index": 1,
+      "position": 1,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_1.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_1.xml"
+    },
+    {
+      "stem": "crazing_2",
+      "class_name": "crazing",
+      "source_index": 2,
+      "position": 2,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_2.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_2.xml"
+    },
+    {
+      "stem": "crazing_3",
+      "class_name": "crazing",
+      "source_index": 3,
+      "position": 3,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_3.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_3.xml"
+    },
+    {
+      "stem": "crazing_4",
+      "class_name": "crazing",
+      "source_index": 4,
+      "position": 4,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_4.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_4.xml"
+    },
+    {
+      "stem": "crazing_5",
+      "class_name": "crazing",
+      "source_index": 5,
+      "position": 5,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_5.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_5.xml"
+    },
+    {
+      "stem": "crazing_6",
+      "class_name": "crazing",
+      "source_index": 6,
+      "position": 6,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_6.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_6.xml"
+    },
+    {
+      "stem": "crazing_7",
+      "class_name": "crazing",
+      "source_index": 7,
+      "position": 7,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_7.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_7.xml"
+    },
+    {
+      "stem": "crazing_8",
+      "class_name": "crazing",
+      "source_index": 8,
+      "position": 8,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_8.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_8.xml"
+    },
+    {
+      "stem": "crazing_9",
+      "class_name": "crazing",
+      "source_index": 9,
+      "position": 9,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_9.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_9.xml"
+    },
+    {
+      "stem": "crazing_10",
+      "class_name": "crazing",
+      "source_index": 10,
+      "position": 10,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_10.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_10.xml"
+    },
+    {
+      "stem": "crazing_11",
+      "class_name": "crazing",
+      "source_index": 11,
+      "position": 11,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_11.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_11.xml"
+    },
+    {
+      "stem": "crazing_12",
+      "class_name": "crazing",
+      "source_index": 12,
+      "position": 12,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_12.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_12.xml"
+    },
+    {
+      "stem": "crazing_13",
+      "class_name": "crazing",
+      "source_index": 13,
+      "position": 13,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_13.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_13.xml"
+    },
+    {
+      "stem": "crazing_14",
+      "class_name": "crazing",
+      "source_index": 14,
+      "position": 14,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_14.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_14.xml"
+    },
+    {
+      "stem": "crazing_15",
+      "class_name": "crazing",
+      "source_index": 15,
+      "position": 15,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_15.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_15.xml"
+    },
+    {
+      "stem": "crazing_16",
+      "class_name": "crazing",
+      "source_index": 16,
+      "position": 16,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_16.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_16.xml"
+    },
+    {
+      "stem": "crazing_17",
+      "class_name": "crazing",
+      "source_index": 17,
+      "position": 17,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_17.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_17.xml"
+    },
+    {
+      "stem": "crazing_18",
+      "class_name": "crazing",
+      "source_index": 18,
+      "position": 18,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_18.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_18.xml"
+    },
+    {
+      "stem": "crazing_19",
+      "class_name": "crazing",
+      "source_index": 19,
+      "position": 19,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_19.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_19.xml"
+    },
+    {
+      "stem": "crazing_20",
+      "class_name": "crazing",
+      "source_index": 20,
+      "position": 20,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_20.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_20.xml"
+    },
+    {
+      "stem": "crazing_21",
+      "class_name": "crazing",
+      "source_index": 21,
+      "position": 21,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_21.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_21.xml"
+    },
+    {
+      "stem": "crazing_22",
+      "class_name": "crazing",
+      "source_index": 22,
+      "position": 22,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_22.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_22.xml"
+    },
+    {
+      "stem": "crazing_23",
+      "class_name": "crazing",
+      "source_index": 23,
+      "position": 23,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_23.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_23.xml"
+    },
+    {
+      "stem": "crazing_24",
+      "class_name": "crazing",
+      "source_index": 24,
+      "position": 24,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_24.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_24.xml"
+    },
+    {
+      "stem": "crazing_25",
+      "class_name": "crazing",
+      "source_index": 25,
+      "position": 25,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_25.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_25.xml"
+    },
+    {
+      "stem": "crazing_26",
+      "class_name": "crazing",
+      "source_index": 26,
+      "position": 26,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_26.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_26.xml"
+    },
+    {
+      "stem": "crazing_27",
+      "class_name": "crazing",
+      "source_index": 27,
+      "position": 27,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_27.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_27.xml"
+    },
+    {
+      "stem": "crazing_28",
+      "class_name": "crazing",
+      "source_index": 28,
+      "position": 28,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_28.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_28.xml"
+    },
+    {
+      "stem": "crazing_29",
+      "class_name": "crazing",
+      "source_index": 29,
+      "position": 29,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_29.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_29.xml"
+    },
+    {
+      "stem": "crazing_30",
+      "class_name": "crazing",
+      "source_index": 30,
+      "position": 30,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_30.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_30.xml"
+    },
+    {
+      "stem": "crazing_31",
+      "class_name": "crazing",
+      "source_index": 31,
+      "position": 31,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_31.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_31.xml"
+    },
+    {
+      "stem": "crazing_32",
+      "class_name": "crazing",
+      "source_index": 32,
+      "position": 32,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_32.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_32.xml"
+    },
+    {
+      "stem": "crazing_33",
+      "class_name": "crazing",
+      "source_index": 33,
+      "position": 33,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_33.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_33.xml"
+    },
+    {
+      "stem": "crazing_34",
+      "class_name": "crazing",
+      "source_index": 34,
+      "position": 34,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_34.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_34.xml"
+    },
+    {
+      "stem": "crazing_35",
+      "class_name": "crazing",
+      "source_index": 35,
+      "position": 35,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_35.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_35.xml"
+    },
+    {
+      "stem": "crazing_36",
+      "class_name": "crazing",
+      "source_index": 36,
+      "position": 36,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_36.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_36.xml"
+    },
+    {
+      "stem": "crazing_37",
+      "class_name": "crazing",
+      "source_index": 37,
+      "position": 37,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_37.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_37.xml"
+    },
+    {
+      "stem": "crazing_38",
+      "class_name": "crazing",
+      "source_index": 38,
+      "position": 38,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_38.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_38.xml"
+    },
+    {
+      "stem": "crazing_39",
+      "class_name": "crazing",
+      "source_index": 39,
+      "position": 39,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_39.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_39.xml"
+    },
+    {
+      "stem": "crazing_40",
+      "class_name": "crazing",
+      "source_index": 40,
+      "position": 40,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_40.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_40.xml"
+    },
+    {
+      "stem": "crazing_41",
+      "class_name": "crazing",
+      "source_index": 41,
+      "position": 41,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_41.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_41.xml"
+    },
+    {
+      "stem": "crazing_42",
+      "class_name": "crazing",
+      "source_index": 42,
+      "position": 42,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_42.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_42.xml"
+    },
+    {
+      "stem": "crazing_43",
+      "class_name": "crazing",
+      "source_index": 43,
+      "position": 43,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_43.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_43.xml"
+    },
+    {
+      "stem": "crazing_44",
+      "class_name": "crazing",
+      "source_index": 44,
+      "position": 44,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_44.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_44.xml"
+    },
+    {
+      "stem": "crazing_45",
+      "class_name": "crazing",
+      "source_index": 45,
+      "position": 45,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_45.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_45.xml"
+    },
+    {
+      "stem": "crazing_46",
+      "class_name": "crazing",
+      "source_index": 46,
+      "position": 46,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_46.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_46.xml"
+    },
+    {
+      "stem": "crazing_47",
+      "class_name": "crazing",
+      "source_index": 47,
+      "position": 47,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_47.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_47.xml"
+    },
+    {
+      "stem": "crazing_48",
+      "class_name": "crazing",
+      "source_index": 48,
+      "position": 48,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_48.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_48.xml"
+    },
+    {
+      "stem": "crazing_49",
+      "class_name": "crazing",
+      "source_index": 49,
+      "position": 49,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_49.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_49.xml"
+    },
+    {
+      "stem": "crazing_50",
+      "class_name": "crazing",
+      "source_index": 50,
+      "position": 50,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/crazing_50.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/crazing_50.xml"
+    },
+    {
+      "stem": "inclusion_1",
+      "class_name": "inclusion",
+      "source_index": 1,
+      "position": 1,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_1.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_1.xml"
+    },
+    {
+      "stem": "inclusion_2",
+      "class_name": "inclusion",
+      "source_index": 2,
+      "position": 2,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_2.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_2.xml"
+    },
+    {
+      "stem": "inclusion_3",
+      "class_name": "inclusion",
+      "source_index": 3,
+      "position": 3,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_3.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_3.xml"
+    },
+    {
+      "stem": "inclusion_4",
+      "class_name": "inclusion",
+      "source_index": 4,
+      "position": 4,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_4.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_4.xml"
+    },
+    {
+      "stem": "inclusion_5",
+      "class_name": "inclusion",
+      "source_index": 5,
+      "position": 5,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_5.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_5.xml"
+    },
+    {
+      "stem": "inclusion_6",
+      "class_name": "inclusion",
+      "source_index": 6,
+      "position": 6,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_6.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_6.xml"
+    },
+    {
+      "stem": "inclusion_7",
+      "class_name": "inclusion",
+      "source_index": 7,
+      "position": 7,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_7.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_7.xml"
+    },
+    {
+      "stem": "inclusion_8",
+      "class_name": "inclusion",
+      "source_index": 8,
+      "position": 8,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_8.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_8.xml"
+    },
+    {
+      "stem": "inclusion_9",
+      "class_name": "inclusion",
+      "source_index": 9,
+      "position": 9,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_9.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_9.xml"
+    },
+    {
+      "stem": "inclusion_10",
+      "class_name": "inclusion",
+      "source_index": 10,
+      "position": 10,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_10.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_10.xml"
+    },
+    {
+      "stem": "inclusion_11",
+      "class_name": "inclusion",
+      "source_index": 11,
+      "position": 11,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_11.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_11.xml"
+    },
+    {
+      "stem": "inclusion_12",
+      "class_name": "inclusion",
+      "source_index": 12,
+      "position": 12,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_12.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_12.xml"
+    },
+    {
+      "stem": "inclusion_13",
+      "class_name": "inclusion",
+      "source_index": 13,
+      "position": 13,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_13.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_13.xml"
+    },
+    {
+      "stem": "inclusion_14",
+      "class_name": "inclusion",
+      "source_index": 14,
+      "position": 14,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_14.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_14.xml"
+    },
+    {
+      "stem": "inclusion_15",
+      "class_name": "inclusion",
+      "source_index": 15,
+      "position": 15,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_15.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_15.xml"
+    },
+    {
+      "stem": "inclusion_16",
+      "class_name": "inclusion",
+      "source_index": 16,
+      "position": 16,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_16.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_16.xml"
+    },
+    {
+      "stem": "inclusion_17",
+      "class_name": "inclusion",
+      "source_index": 17,
+      "position": 17,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_17.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_17.xml"
+    },
+    {
+      "stem": "inclusion_18",
+      "class_name": "inclusion",
+      "source_index": 18,
+      "position": 18,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_18.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_18.xml"
+    },
+    {
+      "stem": "inclusion_19",
+      "class_name": "inclusion",
+      "source_index": 19,
+      "position": 19,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_19.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_19.xml"
+    },
+    {
+      "stem": "inclusion_20",
+      "class_name": "inclusion",
+      "source_index": 20,
+      "position": 20,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_20.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_20.xml"
+    },
+    {
+      "stem": "inclusion_21",
+      "class_name": "inclusion",
+      "source_index": 21,
+      "position": 21,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_21.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_21.xml"
+    },
+    {
+      "stem": "inclusion_22",
+      "class_name": "inclusion",
+      "source_index": 22,
+      "position": 22,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_22.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_22.xml"
+    },
+    {
+      "stem": "inclusion_23",
+      "class_name": "inclusion",
+      "source_index": 23,
+      "position": 23,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_23.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_23.xml"
+    },
+    {
+      "stem": "inclusion_24",
+      "class_name": "inclusion",
+      "source_index": 24,
+      "position": 24,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_24.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_24.xml"
+    },
+    {
+      "stem": "inclusion_25",
+      "class_name": "inclusion",
+      "source_index": 25,
+      "position": 25,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_25.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_25.xml"
+    },
+    {
+      "stem": "inclusion_26",
+      "class_name": "inclusion",
+      "source_index": 26,
+      "position": 26,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_26.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_26.xml"
+    },
+    {
+      "stem": "inclusion_27",
+      "class_name": "inclusion",
+      "source_index": 27,
+      "position": 27,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_27.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_27.xml"
+    },
+    {
+      "stem": "inclusion_28",
+      "class_name": "inclusion",
+      "source_index": 28,
+      "position": 28,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_28.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_28.xml"
+    },
+    {
+      "stem": "inclusion_29",
+      "class_name": "inclusion",
+      "source_index": 29,
+      "position": 29,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_29.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_29.xml"
+    },
+    {
+      "stem": "inclusion_30",
+      "class_name": "inclusion",
+      "source_index": 30,
+      "position": 30,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_30.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_30.xml"
+    },
+    {
+      "stem": "inclusion_31",
+      "class_name": "inclusion",
+      "source_index": 31,
+      "position": 31,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_31.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_31.xml"
+    },
+    {
+      "stem": "inclusion_32",
+      "class_name": "inclusion",
+      "source_index": 32,
+      "position": 32,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_32.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_32.xml"
+    },
+    {
+      "stem": "inclusion_33",
+      "class_name": "inclusion",
+      "source_index": 33,
+      "position": 33,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_33.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_33.xml"
+    },
+    {
+      "stem": "inclusion_34",
+      "class_name": "inclusion",
+      "source_index": 34,
+      "position": 34,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_34.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_34.xml"
+    },
+    {
+      "stem": "inclusion_35",
+      "class_name": "inclusion",
+      "source_index": 35,
+      "position": 35,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_35.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_35.xml"
+    },
+    {
+      "stem": "inclusion_36",
+      "class_name": "inclusion",
+      "source_index": 36,
+      "position": 36,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_36.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_36.xml"
+    },
+    {
+      "stem": "inclusion_37",
+      "class_name": "inclusion",
+      "source_index": 37,
+      "position": 37,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_37.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_37.xml"
+    },
+    {
+      "stem": "inclusion_38",
+      "class_name": "inclusion",
+      "source_index": 38,
+      "position": 38,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_38.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_38.xml"
+    },
+    {
+      "stem": "inclusion_39",
+      "class_name": "inclusion",
+      "source_index": 39,
+      "position": 39,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_39.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_39.xml"
+    },
+    {
+      "stem": "inclusion_40",
+      "class_name": "inclusion",
+      "source_index": 40,
+      "position": 40,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_40.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_40.xml"
+    },
+    {
+      "stem": "inclusion_41",
+      "class_name": "inclusion",
+      "source_index": 41,
+      "position": 41,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_41.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_41.xml"
+    },
+    {
+      "stem": "inclusion_42",
+      "class_name": "inclusion",
+      "source_index": 42,
+      "position": 42,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_42.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_42.xml"
+    },
+    {
+      "stem": "inclusion_43",
+      "class_name": "inclusion",
+      "source_index": 43,
+      "position": 43,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_43.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_43.xml"
+    },
+    {
+      "stem": "inclusion_44",
+      "class_name": "inclusion",
+      "source_index": 44,
+      "position": 44,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_44.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_44.xml"
+    },
+    {
+      "stem": "inclusion_45",
+      "class_name": "inclusion",
+      "source_index": 45,
+      "position": 45,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_45.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_45.xml"
+    },
+    {
+      "stem": "inclusion_46",
+      "class_name": "inclusion",
+      "source_index": 46,
+      "position": 46,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_46.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_46.xml"
+    },
+    {
+      "stem": "inclusion_47",
+      "class_name": "inclusion",
+      "source_index": 47,
+      "position": 47,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_47.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_47.xml"
+    },
+    {
+      "stem": "inclusion_48",
+      "class_name": "inclusion",
+      "source_index": 48,
+      "position": 48,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_48.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_48.xml"
+    },
+    {
+      "stem": "inclusion_49",
+      "class_name": "inclusion",
+      "source_index": 49,
+      "position": 49,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_49.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_49.xml"
+    },
+    {
+      "stem": "inclusion_50",
+      "class_name": "inclusion",
+      "source_index": 50,
+      "position": 50,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/inclusion_50.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/inclusion_50.xml"
+    },
+    {
+      "stem": "patches_1",
+      "class_name": "patches",
+      "source_index": 1,
+      "position": 1,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_1.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_1.xml"
+    },
+    {
+      "stem": "patches_2",
+      "class_name": "patches",
+      "source_index": 2,
+      "position": 2,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_2.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_2.xml"
+    },
+    {
+      "stem": "patches_3",
+      "class_name": "patches",
+      "source_index": 3,
+      "position": 3,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_3.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_3.xml"
+    },
+    {
+      "stem": "patches_4",
+      "class_name": "patches",
+      "source_index": 4,
+      "position": 4,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_4.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_4.xml"
+    },
+    {
+      "stem": "patches_5",
+      "class_name": "patches",
+      "source_index": 5,
+      "position": 5,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_5.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_5.xml"
+    },
+    {
+      "stem": "patches_6",
+      "class_name": "patches",
+      "source_index": 6,
+      "position": 6,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_6.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_6.xml"
+    },
+    {
+      "stem": "patches_7",
+      "class_name": "patches",
+      "source_index": 7,
+      "position": 7,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_7.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_7.xml"
+    },
+    {
+      "stem": "patches_8",
+      "class_name": "patches",
+      "source_index": 8,
+      "position": 8,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_8.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_8.xml"
+    },
+    {
+      "stem": "patches_9",
+      "class_name": "patches",
+      "source_index": 9,
+      "position": 9,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_9.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_9.xml"
+    },
+    {
+      "stem": "patches_10",
+      "class_name": "patches",
+      "source_index": 10,
+      "position": 10,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_10.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_10.xml"
+    },
+    {
+      "stem": "patches_11",
+      "class_name": "patches",
+      "source_index": 11,
+      "position": 11,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_11.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_11.xml"
+    },
+    {
+      "stem": "patches_12",
+      "class_name": "patches",
+      "source_index": 12,
+      "position": 12,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_12.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_12.xml"
+    },
+    {
+      "stem": "patches_13",
+      "class_name": "patches",
+      "source_index": 13,
+      "position": 13,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_13.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_13.xml"
+    },
+    {
+      "stem": "patches_14",
+      "class_name": "patches",
+      "source_index": 14,
+      "position": 14,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_14.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_14.xml"
+    },
+    {
+      "stem": "patches_15",
+      "class_name": "patches",
+      "source_index": 15,
+      "position": 15,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_15.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_15.xml"
+    },
+    {
+      "stem": "patches_16",
+      "class_name": "patches",
+      "source_index": 16,
+      "position": 16,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_16.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_16.xml"
+    },
+    {
+      "stem": "patches_17",
+      "class_name": "patches",
+      "source_index": 17,
+      "position": 17,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_17.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_17.xml"
+    },
+    {
+      "stem": "patches_18",
+      "class_name": "patches",
+      "source_index": 18,
+      "position": 18,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_18.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_18.xml"
+    },
+    {
+      "stem": "patches_19",
+      "class_name": "patches",
+      "source_index": 19,
+      "position": 19,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_19.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_19.xml"
+    },
+    {
+      "stem": "patches_20",
+      "class_name": "patches",
+      "source_index": 20,
+      "position": 20,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_20.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_20.xml"
+    },
+    {
+      "stem": "patches_21",
+      "class_name": "patches",
+      "source_index": 21,
+      "position": 21,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_21.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_21.xml"
+    },
+    {
+      "stem": "patches_22",
+      "class_name": "patches",
+      "source_index": 22,
+      "position": 22,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_22.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_22.xml"
+    },
+    {
+      "stem": "patches_23",
+      "class_name": "patches",
+      "source_index": 23,
+      "position": 23,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_23.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_23.xml"
+    },
+    {
+      "stem": "patches_24",
+      "class_name": "patches",
+      "source_index": 24,
+      "position": 24,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_24.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_24.xml"
+    },
+    {
+      "stem": "patches_25",
+      "class_name": "patches",
+      "source_index": 25,
+      "position": 25,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_25.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_25.xml"
+    },
+    {
+      "stem": "patches_26",
+      "class_name": "patches",
+      "source_index": 26,
+      "position": 26,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_26.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_26.xml"
+    },
+    {
+      "stem": "patches_27",
+      "class_name": "patches",
+      "source_index": 27,
+      "position": 27,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_27.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_27.xml"
+    },
+    {
+      "stem": "patches_29",
+      "class_name": "patches",
+      "source_index": 29,
+      "position": 28,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_29.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_29.xml"
+    },
+    {
+      "stem": "patches_30",
+      "class_name": "patches",
+      "source_index": 30,
+      "position": 29,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_30.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_30.xml"
+    },
+    {
+      "stem": "patches_31",
+      "class_name": "patches",
+      "source_index": 31,
+      "position": 30,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_31.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_31.xml"
+    },
+    {
+      "stem": "patches_32",
+      "class_name": "patches",
+      "source_index": 32,
+      "position": 31,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_32.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_32.xml"
+    },
+    {
+      "stem": "patches_33",
+      "class_name": "patches",
+      "source_index": 33,
+      "position": 32,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_33.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_33.xml"
+    },
+    {
+      "stem": "patches_34",
+      "class_name": "patches",
+      "source_index": 34,
+      "position": 33,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_34.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_34.xml"
+    },
+    {
+      "stem": "patches_35",
+      "class_name": "patches",
+      "source_index": 35,
+      "position": 34,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_35.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_35.xml"
+    },
+    {
+      "stem": "patches_36",
+      "class_name": "patches",
+      "source_index": 36,
+      "position": 35,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_36.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_36.xml"
+    },
+    {
+      "stem": "patches_37",
+      "class_name": "patches",
+      "source_index": 37,
+      "position": 36,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_37.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_37.xml"
+    },
+    {
+      "stem": "patches_38",
+      "class_name": "patches",
+      "source_index": 38,
+      "position": 37,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_38.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_38.xml"
+    },
+    {
+      "stem": "patches_39",
+      "class_name": "patches",
+      "source_index": 39,
+      "position": 38,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_39.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_39.xml"
+    },
+    {
+      "stem": "patches_40",
+      "class_name": "patches",
+      "source_index": 40,
+      "position": 39,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_40.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_40.xml"
+    },
+    {
+      "stem": "patches_41",
+      "class_name": "patches",
+      "source_index": 41,
+      "position": 40,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_41.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_41.xml"
+    },
+    {
+      "stem": "patches_42",
+      "class_name": "patches",
+      "source_index": 42,
+      "position": 41,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_42.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_42.xml"
+    },
+    {
+      "stem": "patches_43",
+      "class_name": "patches",
+      "source_index": 43,
+      "position": 42,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_43.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_43.xml"
+    },
+    {
+      "stem": "patches_44",
+      "class_name": "patches",
+      "source_index": 44,
+      "position": 43,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_44.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_44.xml"
+    },
+    {
+      "stem": "patches_45",
+      "class_name": "patches",
+      "source_index": 45,
+      "position": 44,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_45.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_45.xml"
+    },
+    {
+      "stem": "patches_46",
+      "class_name": "patches",
+      "source_index": 46,
+      "position": 45,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_46.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_46.xml"
+    },
+    {
+      "stem": "patches_47",
+      "class_name": "patches",
+      "source_index": 47,
+      "position": 46,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_47.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_47.xml"
+    },
+    {
+      "stem": "patches_48",
+      "class_name": "patches",
+      "source_index": 48,
+      "position": 47,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_48.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_48.xml"
+    },
+    {
+      "stem": "patches_49",
+      "class_name": "patches",
+      "source_index": 49,
+      "position": 48,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_49.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_49.xml"
+    },
+    {
+      "stem": "patches_50",
+      "class_name": "patches",
+      "source_index": 50,
+      "position": 49,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_50.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_50.xml"
+    },
+    {
+      "stem": "patches_51",
+      "class_name": "patches",
+      "source_index": 51,
+      "position": 50,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/patches_51.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/patches_51.xml"
+    },
+    {
+      "stem": "pitted_surface_1",
+      "class_name": "pitted_surface",
+      "source_index": 1,
+      "position": 1,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_1.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_1.xml"
+    },
+    {
+      "stem": "pitted_surface_2",
+      "class_name": "pitted_surface",
+      "source_index": 2,
+      "position": 2,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_2.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_2.xml"
+    },
+    {
+      "stem": "pitted_surface_3",
+      "class_name": "pitted_surface",
+      "source_index": 3,
+      "position": 3,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_3.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_3.xml"
+    },
+    {
+      "stem": "pitted_surface_4",
+      "class_name": "pitted_surface",
+      "source_index": 4,
+      "position": 4,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_4.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_4.xml"
+    },
+    {
+      "stem": "pitted_surface_5",
+      "class_name": "pitted_surface",
+      "source_index": 5,
+      "position": 5,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_5.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_5.xml"
+    },
+    {
+      "stem": "pitted_surface_6",
+      "class_name": "pitted_surface",
+      "source_index": 6,
+      "position": 6,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_6.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_6.xml"
+    },
+    {
+      "stem": "pitted_surface_7",
+      "class_name": "pitted_surface",
+      "source_index": 7,
+      "position": 7,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_7.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_7.xml"
+    },
+    {
+      "stem": "pitted_surface_8",
+      "class_name": "pitted_surface",
+      "source_index": 8,
+      "position": 8,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_8.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_8.xml"
+    },
+    {
+      "stem": "pitted_surface_9",
+      "class_name": "pitted_surface",
+      "source_index": 9,
+      "position": 9,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_9.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_9.xml"
+    },
+    {
+      "stem": "pitted_surface_10",
+      "class_name": "pitted_surface",
+      "source_index": 10,
+      "position": 10,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_10.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_10.xml"
+    },
+    {
+      "stem": "pitted_surface_11",
+      "class_name": "pitted_surface",
+      "source_index": 11,
+      "position": 11,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_11.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_11.xml"
+    },
+    {
+      "stem": "pitted_surface_12",
+      "class_name": "pitted_surface",
+      "source_index": 12,
+      "position": 12,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_12.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_12.xml"
+    },
+    {
+      "stem": "pitted_surface_13",
+      "class_name": "pitted_surface",
+      "source_index": 13,
+      "position": 13,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_13.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_13.xml"
+    },
+    {
+      "stem": "pitted_surface_14",
+      "class_name": "pitted_surface",
+      "source_index": 14,
+      "position": 14,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_14.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_14.xml"
+    },
+    {
+      "stem": "pitted_surface_15",
+      "class_name": "pitted_surface",
+      "source_index": 15,
+      "position": 15,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_15.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_15.xml"
+    },
+    {
+      "stem": "pitted_surface_16",
+      "class_name": "pitted_surface",
+      "source_index": 16,
+      "position": 16,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_16.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_16.xml"
+    },
+    {
+      "stem": "pitted_surface_17",
+      "class_name": "pitted_surface",
+      "source_index": 17,
+      "position": 17,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_17.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_17.xml"
+    },
+    {
+      "stem": "pitted_surface_19",
+      "class_name": "pitted_surface",
+      "source_index": 19,
+      "position": 18,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_19.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_19.xml"
+    },
+    {
+      "stem": "pitted_surface_20",
+      "class_name": "pitted_surface",
+      "source_index": 20,
+      "position": 19,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_20.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_20.xml"
+    },
+    {
+      "stem": "pitted_surface_21",
+      "class_name": "pitted_surface",
+      "source_index": 21,
+      "position": 20,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_21.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_21.xml"
+    },
+    {
+      "stem": "pitted_surface_22",
+      "class_name": "pitted_surface",
+      "source_index": 22,
+      "position": 21,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_22.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_22.xml"
+    },
+    {
+      "stem": "pitted_surface_23",
+      "class_name": "pitted_surface",
+      "source_index": 23,
+      "position": 22,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_23.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_23.xml"
+    },
+    {
+      "stem": "pitted_surface_24",
+      "class_name": "pitted_surface",
+      "source_index": 24,
+      "position": 23,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_24.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_24.xml"
+    },
+    {
+      "stem": "pitted_surface_25",
+      "class_name": "pitted_surface",
+      "source_index": 25,
+      "position": 24,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_25.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_25.xml"
+    },
+    {
+      "stem": "pitted_surface_26",
+      "class_name": "pitted_surface",
+      "source_index": 26,
+      "position": 25,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_26.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_26.xml"
+    },
+    {
+      "stem": "pitted_surface_27",
+      "class_name": "pitted_surface",
+      "source_index": 27,
+      "position": 26,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_27.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_27.xml"
+    },
+    {
+      "stem": "pitted_surface_28",
+      "class_name": "pitted_surface",
+      "source_index": 28,
+      "position": 27,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_28.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_28.xml"
+    },
+    {
+      "stem": "pitted_surface_29",
+      "class_name": "pitted_surface",
+      "source_index": 29,
+      "position": 28,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_29.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_29.xml"
+    },
+    {
+      "stem": "pitted_surface_30",
+      "class_name": "pitted_surface",
+      "source_index": 30,
+      "position": 29,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_30.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_30.xml"
+    },
+    {
+      "stem": "pitted_surface_31",
+      "class_name": "pitted_surface",
+      "source_index": 31,
+      "position": 30,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_31.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_31.xml"
+    },
+    {
+      "stem": "pitted_surface_32",
+      "class_name": "pitted_surface",
+      "source_index": 32,
+      "position": 31,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_32.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_32.xml"
+    },
+    {
+      "stem": "pitted_surface_33",
+      "class_name": "pitted_surface",
+      "source_index": 33,
+      "position": 32,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_33.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_33.xml"
+    },
+    {
+      "stem": "pitted_surface_34",
+      "class_name": "pitted_surface",
+      "source_index": 34,
+      "position": 33,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_34.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_34.xml"
+    },
+    {
+      "stem": "pitted_surface_35",
+      "class_name": "pitted_surface",
+      "source_index": 35,
+      "position": 34,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_35.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_35.xml"
+    },
+    {
+      "stem": "pitted_surface_36",
+      "class_name": "pitted_surface",
+      "source_index": 36,
+      "position": 35,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_36.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_36.xml"
+    },
+    {
+      "stem": "pitted_surface_37",
+      "class_name": "pitted_surface",
+      "source_index": 37,
+      "position": 36,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_37.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_37.xml"
+    },
+    {
+      "stem": "pitted_surface_38",
+      "class_name": "pitted_surface",
+      "source_index": 38,
+      "position": 37,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_38.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_38.xml"
+    },
+    {
+      "stem": "pitted_surface_39",
+      "class_name": "pitted_surface",
+      "source_index": 39,
+      "position": 38,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_39.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_39.xml"
+    },
+    {
+      "stem": "pitted_surface_40",
+      "class_name": "pitted_surface",
+      "source_index": 40,
+      "position": 39,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_40.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_40.xml"
+    },
+    {
+      "stem": "pitted_surface_41",
+      "class_name": "pitted_surface",
+      "source_index": 41,
+      "position": 40,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_41.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_41.xml"
+    },
+    {
+      "stem": "pitted_surface_42",
+      "class_name": "pitted_surface",
+      "source_index": 42,
+      "position": 41,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_42.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_42.xml"
+    },
+    {
+      "stem": "pitted_surface_43",
+      "class_name": "pitted_surface",
+      "source_index": 43,
+      "position": 42,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_43.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_43.xml"
+    },
+    {
+      "stem": "pitted_surface_44",
+      "class_name": "pitted_surface",
+      "source_index": 44,
+      "position": 43,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_44.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_44.xml"
+    },
+    {
+      "stem": "pitted_surface_45",
+      "class_name": "pitted_surface",
+      "source_index": 45,
+      "position": 44,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_45.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_45.xml"
+    },
+    {
+      "stem": "pitted_surface_46",
+      "class_name": "pitted_surface",
+      "source_index": 46,
+      "position": 45,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_46.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_46.xml"
+    },
+    {
+      "stem": "pitted_surface_47",
+      "class_name": "pitted_surface",
+      "source_index": 47,
+      "position": 46,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_47.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_47.xml"
+    },
+    {
+      "stem": "pitted_surface_48",
+      "class_name": "pitted_surface",
+      "source_index": 48,
+      "position": 47,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_48.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_48.xml"
+    },
+    {
+      "stem": "pitted_surface_49",
+      "class_name": "pitted_surface",
+      "source_index": 49,
+      "position": 48,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_49.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_49.xml"
+    },
+    {
+      "stem": "pitted_surface_50",
+      "class_name": "pitted_surface",
+      "source_index": 50,
+      "position": 49,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_50.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_50.xml"
+    },
+    {
+      "stem": "pitted_surface_51",
+      "class_name": "pitted_surface",
+      "source_index": 51,
+      "position": 50,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/pitted_surface_51.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/pitted_surface_51.xml"
+    },
+    {
+      "stem": "rolled-in_scale_1",
+      "class_name": "rolled-in_scale",
+      "source_index": 1,
+      "position": 1,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_1.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_1.xml"
+    },
+    {
+      "stem": "rolled-in_scale_2",
+      "class_name": "rolled-in_scale",
+      "source_index": 2,
+      "position": 2,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_2.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_2.xml"
+    },
+    {
+      "stem": "rolled-in_scale_3",
+      "class_name": "rolled-in_scale",
+      "source_index": 3,
+      "position": 3,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_3.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_3.xml"
+    },
+    {
+      "stem": "rolled-in_scale_4",
+      "class_name": "rolled-in_scale",
+      "source_index": 4,
+      "position": 4,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_4.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_4.xml"
+    },
+    {
+      "stem": "rolled-in_scale_5",
+      "class_name": "rolled-in_scale",
+      "source_index": 5,
+      "position": 5,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_5.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_5.xml"
+    },
+    {
+      "stem": "rolled-in_scale_6",
+      "class_name": "rolled-in_scale",
+      "source_index": 6,
+      "position": 6,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_6.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_6.xml"
+    },
+    {
+      "stem": "rolled-in_scale_7",
+      "class_name": "rolled-in_scale",
+      "source_index": 7,
+      "position": 7,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_7.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_7.xml"
+    },
+    {
+      "stem": "rolled-in_scale_8",
+      "class_name": "rolled-in_scale",
+      "source_index": 8,
+      "position": 8,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_8.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_8.xml"
+    },
+    {
+      "stem": "rolled-in_scale_9",
+      "class_name": "rolled-in_scale",
+      "source_index": 9,
+      "position": 9,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_9.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_9.xml"
+    },
+    {
+      "stem": "rolled-in_scale_10",
+      "class_name": "rolled-in_scale",
+      "source_index": 10,
+      "position": 10,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_10.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_10.xml"
+    },
+    {
+      "stem": "rolled-in_scale_11",
+      "class_name": "rolled-in_scale",
+      "source_index": 11,
+      "position": 11,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_11.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_11.xml"
+    },
+    {
+      "stem": "rolled-in_scale_12",
+      "class_name": "rolled-in_scale",
+      "source_index": 12,
+      "position": 12,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_12.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_12.xml"
+    },
+    {
+      "stem": "rolled-in_scale_13",
+      "class_name": "rolled-in_scale",
+      "source_index": 13,
+      "position": 13,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_13.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_13.xml"
+    },
+    {
+      "stem": "rolled-in_scale_15",
+      "class_name": "rolled-in_scale",
+      "source_index": 15,
+      "position": 14,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_15.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_15.xml"
+    },
+    {
+      "stem": "rolled-in_scale_16",
+      "class_name": "rolled-in_scale",
+      "source_index": 16,
+      "position": 15,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_16.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_16.xml"
+    },
+    {
+      "stem": "rolled-in_scale_17",
+      "class_name": "rolled-in_scale",
+      "source_index": 17,
+      "position": 16,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_17.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_17.xml"
+    },
+    {
+      "stem": "rolled-in_scale_18",
+      "class_name": "rolled-in_scale",
+      "source_index": 18,
+      "position": 17,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_18.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_18.xml"
+    },
+    {
+      "stem": "rolled-in_scale_19",
+      "class_name": "rolled-in_scale",
+      "source_index": 19,
+      "position": 18,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_19.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_19.xml"
+    },
+    {
+      "stem": "rolled-in_scale_20",
+      "class_name": "rolled-in_scale",
+      "source_index": 20,
+      "position": 19,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_20.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_20.xml"
+    },
+    {
+      "stem": "rolled-in_scale_21",
+      "class_name": "rolled-in_scale",
+      "source_index": 21,
+      "position": 20,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_21.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_21.xml"
+    },
+    {
+      "stem": "rolled-in_scale_22",
+      "class_name": "rolled-in_scale",
+      "source_index": 22,
+      "position": 21,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_22.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_22.xml"
+    },
+    {
+      "stem": "rolled-in_scale_23",
+      "class_name": "rolled-in_scale",
+      "source_index": 23,
+      "position": 22,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_23.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_23.xml"
+    },
+    {
+      "stem": "rolled-in_scale_24",
+      "class_name": "rolled-in_scale",
+      "source_index": 24,
+      "position": 23,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_24.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_24.xml"
+    },
+    {
+      "stem": "rolled-in_scale_25",
+      "class_name": "rolled-in_scale",
+      "source_index": 25,
+      "position": 24,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_25.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_25.xml"
+    },
+    {
+      "stem": "rolled-in_scale_26",
+      "class_name": "rolled-in_scale",
+      "source_index": 26,
+      "position": 25,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_26.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_26.xml"
+    },
+    {
+      "stem": "rolled-in_scale_27",
+      "class_name": "rolled-in_scale",
+      "source_index": 27,
+      "position": 26,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_27.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_27.xml"
+    },
+    {
+      "stem": "rolled-in_scale_28",
+      "class_name": "rolled-in_scale",
+      "source_index": 28,
+      "position": 27,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_28.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_28.xml"
+    },
+    {
+      "stem": "rolled-in_scale_29",
+      "class_name": "rolled-in_scale",
+      "source_index": 29,
+      "position": 28,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_29.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_29.xml"
+    },
+    {
+      "stem": "rolled-in_scale_30",
+      "class_name": "rolled-in_scale",
+      "source_index": 30,
+      "position": 29,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_30.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_30.xml"
+    },
+    {
+      "stem": "rolled-in_scale_31",
+      "class_name": "rolled-in_scale",
+      "source_index": 31,
+      "position": 30,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_31.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_31.xml"
+    },
+    {
+      "stem": "rolled-in_scale_32",
+      "class_name": "rolled-in_scale",
+      "source_index": 32,
+      "position": 31,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_32.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_32.xml"
+    },
+    {
+      "stem": "rolled-in_scale_33",
+      "class_name": "rolled-in_scale",
+      "source_index": 33,
+      "position": 32,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_33.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_33.xml"
+    },
+    {
+      "stem": "rolled-in_scale_34",
+      "class_name": "rolled-in_scale",
+      "source_index": 34,
+      "position": 33,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_34.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_34.xml"
+    },
+    {
+      "stem": "rolled-in_scale_35",
+      "class_name": "rolled-in_scale",
+      "source_index": 35,
+      "position": 34,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_35.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_35.xml"
+    },
+    {
+      "stem": "rolled-in_scale_36",
+      "class_name": "rolled-in_scale",
+      "source_index": 36,
+      "position": 35,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_36.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_36.xml"
+    },
+    {
+      "stem": "rolled-in_scale_37",
+      "class_name": "rolled-in_scale",
+      "source_index": 37,
+      "position": 36,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_37.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_37.xml"
+    },
+    {
+      "stem": "rolled-in_scale_38",
+      "class_name": "rolled-in_scale",
+      "source_index": 38,
+      "position": 37,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_38.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_38.xml"
+    },
+    {
+      "stem": "rolled-in_scale_39",
+      "class_name": "rolled-in_scale",
+      "source_index": 39,
+      "position": 38,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_39.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_39.xml"
+    },
+    {
+      "stem": "rolled-in_scale_40",
+      "class_name": "rolled-in_scale",
+      "source_index": 40,
+      "position": 39,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_40.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_40.xml"
+    },
+    {
+      "stem": "rolled-in_scale_41",
+      "class_name": "rolled-in_scale",
+      "source_index": 41,
+      "position": 40,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_41.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_41.xml"
+    },
+    {
+      "stem": "rolled-in_scale_42",
+      "class_name": "rolled-in_scale",
+      "source_index": 42,
+      "position": 41,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_42.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_42.xml"
+    },
+    {
+      "stem": "rolled-in_scale_43",
+      "class_name": "rolled-in_scale",
+      "source_index": 43,
+      "position": 42,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_43.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_43.xml"
+    },
+    {
+      "stem": "rolled-in_scale_44",
+      "class_name": "rolled-in_scale",
+      "source_index": 44,
+      "position": 43,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_44.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_44.xml"
+    },
+    {
+      "stem": "rolled-in_scale_45",
+      "class_name": "rolled-in_scale",
+      "source_index": 45,
+      "position": 44,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_45.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_45.xml"
+    },
+    {
+      "stem": "rolled-in_scale_46",
+      "class_name": "rolled-in_scale",
+      "source_index": 46,
+      "position": 45,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_46.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_46.xml"
+    },
+    {
+      "stem": "rolled-in_scale_47",
+      "class_name": "rolled-in_scale",
+      "source_index": 47,
+      "position": 46,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_47.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_47.xml"
+    },
+    {
+      "stem": "rolled-in_scale_48",
+      "class_name": "rolled-in_scale",
+      "source_index": 48,
+      "position": 47,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_48.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_48.xml"
+    },
+    {
+      "stem": "rolled-in_scale_49",
+      "class_name": "rolled-in_scale",
+      "source_index": 49,
+      "position": 48,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_49.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_49.xml"
+    },
+    {
+      "stem": "rolled-in_scale_50",
+      "class_name": "rolled-in_scale",
+      "source_index": 50,
+      "position": 49,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_50.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_50.xml"
+    },
+    {
+      "stem": "rolled-in_scale_51",
+      "class_name": "rolled-in_scale",
+      "source_index": 51,
+      "position": 50,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/rolled-in_scale_51.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/rolled-in_scale_51.xml"
+    },
+    {
+      "stem": "scratches_1",
+      "class_name": "scratches",
+      "source_index": 1,
+      "position": 1,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_1.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_1.xml"
+    },
+    {
+      "stem": "scratches_2",
+      "class_name": "scratches",
+      "source_index": 2,
+      "position": 2,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_2.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_2.xml"
+    },
+    {
+      "stem": "scratches_3",
+      "class_name": "scratches",
+      "source_index": 3,
+      "position": 3,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_3.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_3.xml"
+    },
+    {
+      "stem": "scratches_4",
+      "class_name": "scratches",
+      "source_index": 4,
+      "position": 4,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_4.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_4.xml"
+    },
+    {
+      "stem": "scratches_5",
+      "class_name": "scratches",
+      "source_index": 5,
+      "position": 5,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_5.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_5.xml"
+    },
+    {
+      "stem": "scratches_6",
+      "class_name": "scratches",
+      "source_index": 6,
+      "position": 6,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_6.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_6.xml"
+    },
+    {
+      "stem": "scratches_7",
+      "class_name": "scratches",
+      "source_index": 7,
+      "position": 7,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_7.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_7.xml"
+    },
+    {
+      "stem": "scratches_8",
+      "class_name": "scratches",
+      "source_index": 8,
+      "position": 8,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_8.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_8.xml"
+    },
+    {
+      "stem": "scratches_9",
+      "class_name": "scratches",
+      "source_index": 9,
+      "position": 9,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_9.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_9.xml"
+    },
+    {
+      "stem": "scratches_10",
+      "class_name": "scratches",
+      "source_index": 10,
+      "position": 10,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_10.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_10.xml"
+    },
+    {
+      "stem": "scratches_11",
+      "class_name": "scratches",
+      "source_index": 11,
+      "position": 11,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_11.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_11.xml"
+    },
+    {
+      "stem": "scratches_12",
+      "class_name": "scratches",
+      "source_index": 12,
+      "position": 12,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_12.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_12.xml"
+    },
+    {
+      "stem": "scratches_13",
+      "class_name": "scratches",
+      "source_index": 13,
+      "position": 13,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_13.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_13.xml"
+    },
+    {
+      "stem": "scratches_14",
+      "class_name": "scratches",
+      "source_index": 14,
+      "position": 14,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_14.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_14.xml"
+    },
+    {
+      "stem": "scratches_15",
+      "class_name": "scratches",
+      "source_index": 15,
+      "position": 15,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_15.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_15.xml"
+    },
+    {
+      "stem": "scratches_16",
+      "class_name": "scratches",
+      "source_index": 16,
+      "position": 16,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_16.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_16.xml"
+    },
+    {
+      "stem": "scratches_17",
+      "class_name": "scratches",
+      "source_index": 17,
+      "position": 17,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_17.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_17.xml"
+    },
+    {
+      "stem": "scratches_18",
+      "class_name": "scratches",
+      "source_index": 18,
+      "position": 18,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_18.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_18.xml"
+    },
+    {
+      "stem": "scratches_19",
+      "class_name": "scratches",
+      "source_index": 19,
+      "position": 19,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_19.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_19.xml"
+    },
+    {
+      "stem": "scratches_20",
+      "class_name": "scratches",
+      "source_index": 20,
+      "position": 20,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_20.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_20.xml"
+    },
+    {
+      "stem": "scratches_21",
+      "class_name": "scratches",
+      "source_index": 21,
+      "position": 21,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_21.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_21.xml"
+    },
+    {
+      "stem": "scratches_22",
+      "class_name": "scratches",
+      "source_index": 22,
+      "position": 22,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_22.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_22.xml"
+    },
+    {
+      "stem": "scratches_23",
+      "class_name": "scratches",
+      "source_index": 23,
+      "position": 23,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_23.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_23.xml"
+    },
+    {
+      "stem": "scratches_24",
+      "class_name": "scratches",
+      "source_index": 24,
+      "position": 24,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_24.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_24.xml"
+    },
+    {
+      "stem": "scratches_25",
+      "class_name": "scratches",
+      "source_index": 25,
+      "position": 25,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_25.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_25.xml"
+    },
+    {
+      "stem": "scratches_26",
+      "class_name": "scratches",
+      "source_index": 26,
+      "position": 26,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_26.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_26.xml"
+    },
+    {
+      "stem": "scratches_27",
+      "class_name": "scratches",
+      "source_index": 27,
+      "position": 27,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_27.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_27.xml"
+    },
+    {
+      "stem": "scratches_28",
+      "class_name": "scratches",
+      "source_index": 28,
+      "position": 28,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_28.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_28.xml"
+    },
+    {
+      "stem": "scratches_29",
+      "class_name": "scratches",
+      "source_index": 29,
+      "position": 29,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_29.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_29.xml"
+    },
+    {
+      "stem": "scratches_30",
+      "class_name": "scratches",
+      "source_index": 30,
+      "position": 30,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_30.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_30.xml"
+    },
+    {
+      "stem": "scratches_31",
+      "class_name": "scratches",
+      "source_index": 31,
+      "position": 31,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_31.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_31.xml"
+    },
+    {
+      "stem": "scratches_32",
+      "class_name": "scratches",
+      "source_index": 32,
+      "position": 32,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_32.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_32.xml"
+    },
+    {
+      "stem": "scratches_33",
+      "class_name": "scratches",
+      "source_index": 33,
+      "position": 33,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_33.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_33.xml"
+    },
+    {
+      "stem": "scratches_34",
+      "class_name": "scratches",
+      "source_index": 34,
+      "position": 34,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_34.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_34.xml"
+    },
+    {
+      "stem": "scratches_35",
+      "class_name": "scratches",
+      "source_index": 35,
+      "position": 35,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_35.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_35.xml"
+    },
+    {
+      "stem": "scratches_36",
+      "class_name": "scratches",
+      "source_index": 36,
+      "position": 36,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_36.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_36.xml"
+    },
+    {
+      "stem": "scratches_37",
+      "class_name": "scratches",
+      "source_index": 37,
+      "position": 37,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_37.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_37.xml"
+    },
+    {
+      "stem": "scratches_38",
+      "class_name": "scratches",
+      "source_index": 38,
+      "position": 38,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_38.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_38.xml"
+    },
+    {
+      "stem": "scratches_39",
+      "class_name": "scratches",
+      "source_index": 39,
+      "position": 39,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_39.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_39.xml"
+    },
+    {
+      "stem": "scratches_40",
+      "class_name": "scratches",
+      "source_index": 40,
+      "position": 40,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_40.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_40.xml"
+    },
+    {
+      "stem": "scratches_41",
+      "class_name": "scratches",
+      "source_index": 41,
+      "position": 41,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_41.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_41.xml"
+    },
+    {
+      "stem": "scratches_42",
+      "class_name": "scratches",
+      "source_index": 42,
+      "position": 42,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_42.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_42.xml"
+    },
+    {
+      "stem": "scratches_43",
+      "class_name": "scratches",
+      "source_index": 43,
+      "position": 43,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_43.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_43.xml"
+    },
+    {
+      "stem": "scratches_44",
+      "class_name": "scratches",
+      "source_index": 44,
+      "position": 44,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_44.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_44.xml"
+    },
+    {
+      "stem": "scratches_45",
+      "class_name": "scratches",
+      "source_index": 45,
+      "position": 45,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_45.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_45.xml"
+    },
+    {
+      "stem": "scratches_46",
+      "class_name": "scratches",
+      "source_index": 46,
+      "position": 46,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_46.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_46.xml"
+    },
+    {
+      "stem": "scratches_47",
+      "class_name": "scratches",
+      "source_index": 47,
+      "position": 47,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_47.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_47.xml"
+    },
+    {
+      "stem": "scratches_48",
+      "class_name": "scratches",
+      "source_index": 48,
+      "position": 48,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_48.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_48.xml"
+    },
+    {
+      "stem": "scratches_49",
+      "class_name": "scratches",
+      "source_index": 49,
+      "position": 49,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_49.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_49.xml"
+    },
+    {
+      "stem": "scratches_50",
+      "class_name": "scratches",
+      "source_index": 50,
+      "position": 50,
+      "image_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/IMAGES/scratches_50.jpg",
+      "annotation_url": "https://github.com/siddhartamukherjee/NEU-DET-Steel-Surface-Defect-Detection/raw/refs/heads/master/ANNOTATIONS/scratches_50.xml"
+    }
+  ]
+}

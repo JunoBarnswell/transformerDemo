@@ -1,0 +1,14 @@
+{
+  "source_manifest": "C:\\Users\\kuo13\\Desktop\\transformerDemo\\data\\vision_eval_50\\manifest_train.jsonl",
+  "samples_per_class": 80,
+  "class_counts": {
+    "crazing": 80,
+    "inclusion": 80,
+    "patches": 80,
+    "pitted_surface": 80,
+    "rolled-in_scale": 80,
+    "scratches": 80
+  },
+  "total_samples": 480,
+  "policy": "D4 square geometry plus bounded brightness/contrast; no perspective, blur, mosaic, or pasted boxes"
+}

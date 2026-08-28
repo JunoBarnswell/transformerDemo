@@ -55,18 +55,24 @@ def generate_balanced_dataset(
     image_output = output / "images"
     image_output.mkdir(parents=True, exist_ok=True)
 
-    grouped: dict[int, list[dict[str, Any]]] = defaultdict(list)
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in _load_rows(manifest):
-        labels = {int(label) for label in row.get("labels", [])}
-        if len(labels) != 1:
-            raise ValueError("offline class balancing requires one class per source image")
-        grouped[next(iter(labels))].append(row)
+        metadata = row.get("metadata", {})
+        source_group = metadata.get("source_filename_class")
+        if not source_group:
+            labels = {int(label) for label in row.get("labels", [])}
+            if len(labels) == 1:
+                source_group = f"class_{next(iter(labels))}"
+            else:
+                stem = Path(row["image"]).stem
+                source_group = stem
+        grouped[str(source_group)].append(row)
 
     generated_rows: list[dict[str, Any]] = []
     class_counts: dict[str, int] = {}
-    for class_id in sorted(grouped):
-        sources = grouped[class_id]
-        class_counts[str(class_id)] = samples_per_class
+    for group_index, group_name in enumerate(sorted(grouped)):
+        sources = grouped[group_name]
+        class_counts[group_name] = samples_per_class
         for output_index in range(samples_per_class):
             source = sources[output_index % len(sources)]
             variant_index = output_index // len(sources)
@@ -93,7 +99,7 @@ def generate_balanced_dataset(
             transformed_image = ImageEnhance.Contrast(transformed_image).enhance(contrast)
 
             stem = source_image.stem
-            filename = f"class_{class_id:02d}_{output_index:03d}_{stem}.jpg"
+            filename = f"group_{group_index:02d}_{output_index:03d}_{stem}.jpg"
             transformed_image.save(image_output / filename, quality=95)
             metadata = dict(source.get("metadata", {}))
             metadata.update(
@@ -104,6 +110,7 @@ def generate_balanced_dataset(
                         "mirror_horizontal": mirror_horizontal,
                         "brightness_factor": brightness,
                         "contrast_factor": contrast,
+                        "source_group": group_name,
                     },
                 }
             )
@@ -111,7 +118,7 @@ def generate_balanced_dataset(
                 {
                     "image": f"images/{filename}",
                     "boxes": [[round(float(value), 4) for value in box] for box in transformed_boxes.tolist()],
-                    "labels": [class_id] * len(transformed_boxes),
+                    "labels": list(source["labels"]),
                     "metadata": metadata,
                 }
             )
