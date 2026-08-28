@@ -1,0 +1,32 @@
+seed: 42
+
+data:
+  data_file: data/sample_conversations.jsonl
+  vocab_path: data/vocab.json
+  vocab_size: 2000
+  seq_len: 64
+
+train:
+  output_dir: outputs/run
+  batch_size: 4
+  num_workers: 0
+  max_steps: 20
+  max_epochs: 1
+  learning_rate: 0.0005
+  grad_clip: 1.0
+  eval_interval: 5
+  save_interval: 5
+  log_interval: 1
+
+model:
+  d_model: 64
+  nhead: 2
+  n_layers: 2
+  ff_dim: 128
+  dropout: 0.1
+
+generation:
+  max_new_tokens: 24
+  temperature: 1.0
+  top_k: 0
+  top_p: 1.0
