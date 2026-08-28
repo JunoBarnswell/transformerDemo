@@ -26,7 +26,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def load_checkpoint_bundle(checkpoint: str):
-    payload = torch.load(checkpoint, map_location="cpu")
+    payload = torch.load(checkpoint, map_location="cpu", weights_only=False)
     cfg: Dict[str, Any] = payload["config"]
     token = CharTokenizer(token_to_id=payload["token_to_id"], id_to_token=payload["id_to_token"])
 
@@ -47,6 +47,33 @@ def load_checkpoint_bundle(checkpoint: str):
     return model, token, cfg
 
 
+def _split_thinking(
+    response_ids: List[int],
+    tokenizer: CharTokenizer,
+) -> tuple[str, str]:
+    """Split generated ids into (thinking_text, response_text).
+
+    If the output contains <think>…</think>, the content inside is the
+    thinking chain and the content after </think> is the final reply.
+    Otherwise thinking_text is empty and response_text is the full output.
+    """
+    think_id = tokenizer.think_id
+    end_think_id = tokenizer.end_think_id
+
+    if think_id in response_ids and end_think_id in response_ids:
+        t_start = response_ids.index(think_id)
+        t_end = response_ids.index(end_think_id)
+        if t_start < t_end:
+            thinking_ids = response_ids[t_start + 1 : t_end]
+            reply_ids = response_ids[t_end + 1 :]
+            thinking_text = tokenizer.decode(thinking_ids)
+            response_text = tokenizer.decode(reply_ids)
+            return thinking_text, response_text
+
+    # No thinking block — whole output is the reply
+    return "", tokenizer.decode(response_ids)
+
+
 def generate_text(
     model: TinyTransformerLM,
     tokenizer: CharTokenizer,
@@ -59,8 +86,10 @@ def generate_text(
 ) -> Dict[str, Any]:
     prompt_ids = encode_chat_prompt(prompt, tokenizer, context_turns=context_turns)
     input_ids = torch.tensor([prompt_ids], dtype=torch.long)
+    # RoPE has no hard length limit — no forced truncation needed.
+    # We still guard against pathologically long prompts.
     if input_ids.size(1) >= model.cfg.max_seq_len:
-        input_ids = input_ids[:, -model.cfg.max_seq_len :]
+        input_ids = input_ids[:, -model.cfg.max_seq_len:]
 
     start = time.time()
     output = model.generate(
@@ -77,21 +106,22 @@ def generate_text(
     prompt_len = input_ids.size(1)
     response_ids = generated_ids[prompt_len:]
 
-    # Truncate response tokens at the first EOS or SEP delimiter
+    # Hard stop at earliest EOS or SEP (before think-splitting)
     stop_indices = [
         response_ids.index(stop_id)
         for stop_id in (tokenizer.eos_id, tokenizer.sep_id)
         if stop_id in response_ids
     ]
     if stop_indices:
-        earliest_stop = min(stop_indices)
-        response_ids = response_ids[:earliest_stop]
+        response_ids = response_ids[: min(stop_indices)]
 
-    response_text = tokenizer.decode(response_ids)
+    # Split <think>…</think> from final reply
+    thinking_text, response_text = _split_thinking(response_ids, tokenizer)
 
     return {
         "prompt": prompt,
         "response": response_text,
+        "thinking": thinking_text,
         "response_ids": response_ids,
         "steps": len(response_ids),
         "elapsed_sec": elapsed,
@@ -118,7 +148,6 @@ def generate_reply(
         top_k=top_k,
         top_p=top_p,
     )
-
 
 
 def main() -> None:

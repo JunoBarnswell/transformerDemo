@@ -1,0 +1,219 @@
+{
+  "checkpoint": "outputs/run_rope/best.pt",
+  "num_samples": 30,
+  "max_context_turns": 4,
+  "max_new_tokens": 24,
+  "bleu": 0.4696435248240168,
+  "samples": [
+    {
+      "sample_id": 0,
+      "prompt": "你好",
+      "reference": "你好！很高兴和你聊天，有什么我可以帮你的吗？",
+      "prediction": "你好！很高兴和你聊天，有什么我可以帮你的吗？",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 1,
+      "prompt": "你好，请介绍一下自己",
+      "reference": "你好！我是全自研的轻量 Transformer 聊天助手，纯 CPU 运行，支持旋转位置编码、长对话记忆管理与深度思考模式，很高兴为你提供帮助。",
+      "prediction": "用户在问候并希望我做自我介绍，需要礼貌并清晰地",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 2,
+      "prompt": "你是谁？",
+      "reference": "我是全自研的轻量 Transformer 聊天助手，纯 CPU 运行，无需任何第三方预训练权重。",
+      "prediction": "用户想了解我的身份，需要简洁介绍自己是全自研的",
+      "bleu": 0.0584677169618731
+    },
+    {
+      "sample_id": 3,
+      "prompt": "你能做什么？",
+      "reference": "我可以陪你日常对话、解答知识与编程问题、进行深度思考推理，并在长对话中持续记住你的历史信息。",
+      "prediction": "用户询问我的功能范围，需要条理分明地列举聊天、",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 4,
+      "prompt": "你叫什么名字？",
+      "reference": "我是全自研的 Transformer 聊天助手。",
+      "prediction": "我是全自研的 Transformer 聊天助手。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 5,
+      "prompt": "你好吗？",
+      "reference": "我很好，谢谢你！你今天过得怎么样？",
+      "prediction": "我很好，谢谢你！你今天过得怎么样？",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 6,
+      "prompt": "今天天气很好。",
+      "reference": "是呀，适合出门散步晒晒太阳。",
+      "prediction": "是呀，适合出门散步晒晒太阳。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 7,
+      "prompt": "你会学习吗？",
+      "reference": "我会学习，我是一个基于全自研 Transformer 架构的对话模型。",
+      "prediction": "用户在询问我的学习能力，我应该说明自己是基于自",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 8,
+      "prompt": "我们明天见面吧。",
+      "reference": "好啊，记得提前告诉我具体的时间和地点。",
+      "prediction": "好啊，记得提前告诉我具体的时间和地点。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 9,
+      "prompt": "你推荐一部电影吗？",
+      "reference": "推荐你看看《星际穿越》或者《黑客帝国》，都非常精彩。",
+      "prediction": "用户想要电影推荐，我可以推荐经典科幻片，展示自",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 10,
+      "prompt": "你会做饭吗？",
+      "reference": "我不会亲自做饭，但我可以为你提供各种美味的菜谱和烹饪步骤。",
+      "prediction": "我不会亲自做饭，但我可以为你提供各种美味的菜谱和",
+      "bleu": 0.811936346150635
+    },
+    {
+      "sample_id": 11,
+      "prompt": "今天心情有点糟。",
+      "reference": "别难过，抱抱你。如果有什么烦恼，随时跟我说说。",
+      "prediction": "用户表达了负负面情绪，我应该给予情感上的支持和",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 12,
+      "prompt": "早上好！",
+      "reference": "早上好！祝你今天拥有元气满满的一天！",
+      "prediction": "早上好！祝你今天拥好是一满满的一天！",
+      "bleu": 0.7160350546947922
+    },
+    {
+      "sample_id": 13,
+      "prompt": "晚上好！",
+      "reference": "晚上好，今天工作或者学习辛苦了，早点休息哦。",
+      "prediction": "晚上好，今天工作或者学习辛苦了，早点休息者学习。",
+      "bleu": 0.8318180062062374
+    },
+    {
+      "sample_id": 14,
+      "prompt": "什么是 Transformer？",
+      "reference": "Transformer 是一种基于自注意力机制的深度学习架构，能够高效捕捉长距离上下文。",
+      "prediction": "这是一个技术类问题，需要给出简明精准的定义，重",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 15,
+      "prompt": "什么是注意力机制？",
+      "reference": "注意力机制可以让模型在生成每个词时，动态关注输入中最相关的部分。",
+      "prediction": "注意力机制是核心技术概念，我应该解释它如何动态",
+      "bleu": 0.12395428358386988
+    },
+    {
+      "sample_id": 16,
+      "prompt": "你喜欢听音乐吗？",
+      "reference": "虽然我不能直接听，但我知道很多好听的流行音乐和古典乐。",
+      "prediction": "虽然我不能直接听，但我知道很多好听的流行音乐和古",
+      "bleu": 0.8824969025845955
+    },
+    {
+      "sample_id": 17,
+      "prompt": "推荐一首好听的歌。",
+      "reference": "推荐听听周杰伦的《晴天》，旋律非常轻快优美。",
+      "prediction": "用户想要音乐推荐，推荐周杰伦的晴天是一个大众认",
+      "bleu": 0.1434533437144611
+    },
+    {
+      "sample_id": 18,
+      "prompt": "今天下雨了。",
+      "reference": "出门记得带好雨伞，路上注意防滑和保暖。",
+      "prediction": "出门记得带好雨伞，路上注意防滑和保暖。了顺序列",
+      "bleu": 0.8133899474202537
+    },
+    {
+      "sample_id": 19,
+      "prompt": "我好累啊。",
+      "reference": "辛苦了，先喝口温水，靠在椅子上闭目养神休息十分钟吧。",
+      "prediction": "辛",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 20,
+      "prompt": "明天去哪里玩比较好？",
+      "reference": "天气好的话可以去公园散步，或者去附近的博物馆和书店逛逛。",
+      "prediction": "天气好的话可以去公园散步，或者去附近的博物馆和书",
+      "bleu": 0.846481724890614
+    },
+    {
+      "sample_id": 21,
+      "prompt": "你支持 GPU 还是 CPU？",
+      "reference": "我都支持，但我的架构特别针对 CPU 做了轻量化设计，推理速度非常快。",
+      "prediction": "这是关于模型运行平台的技术问题，应该说明针对 ",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 22,
+      "prompt": "你会写代码吗？",
+      "reference": "我会很多编程语言的基本概念，比如 Python、C++ 和 PyTorch。",
+      "prediction": "我会很多编程语言的基本概念，比如 Python、",
+      "bleu": 0.5580351457700471
+    },
+    {
+      "sample_id": 23,
+      "prompt": "如何学好 Python？",
+      "reference": "建议多动手敲代码，做一些实际的小项目，比如这个 Transformer demo。",
+      "prediction": "这是关于学习编程的问题，应该给出实用的建议，比",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 24,
+      "prompt": "今天吃什么好呢？",
+      "reference": "可以吃一碗热腾腾的面条，或者来一份健康的轻食沙拉。",
+      "prediction": "可以吃一碗热腾腾的面条，或者来一份健康的轻食沙拉",
+      "bleu": 0.9591894571091382
+    },
+    {
+      "sample_id": 25,
+      "prompt": "很高兴认识你。",
+      "reference": "我也很高兴认识你，期待能给你带来帮助！",
+      "prediction": "我也很高兴认识你，期待能给你带来帮助！",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 26,
+      "prompt": "再见！",
+      "reference": "再见！祝你生活愉快，有需要随时来找我！",
+      "prediction": "再见！祝你生活愉快，有需要随时来找我！",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 27,
+      "prompt": "再见",
+      "reference": "再见！祝你生活愉快，有需要随时来找我！",
+      "prediction": "祝你本好！祝你今天拥有元气满满的一天！",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 28,
+      "prompt": "你觉得人工智能会取代人类吗？",
+      "reference": "人工智能是人类的得力助手，目的是辅助和增强人类的能力，而不是取代人类。",
+      "prediction": "这是一个需要谨慎回答的哲学问题，应该强调人工智",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 29,
+      "prompt": "什么是深度学习？",
+      "reference": "深度学习是机器学习的一个分支，通过多层神经网络自动从数据中学习特征表征。",
+      "prediction": "深度学习是机器学习的子领域，核心是多层神经网络",
+      "bleu": 0.3440478156339868
+    }
+  ]
+}

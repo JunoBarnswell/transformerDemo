@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Iterable, List
 
 
-SPECIAL_TOKENS = ["<pad>", "<unk>", "<bos>", "<eos>", "<sep>"]
+SPECIAL_TOKENS = ["<pad>", "<unk>", "<bos>", "<eos>", "<sep>", "<think>", "</think>"]
 
 
 @dataclass
@@ -36,6 +36,14 @@ class CharTokenizer:
     @property
     def sep_id(self) -> int:
         return self.token_to_id["<sep>"]
+
+    @property
+    def think_id(self) -> int:
+        return self.token_to_id["<think>"]
+
+    @property
+    def end_think_id(self) -> int:
+        return self.token_to_id["</think>"]
 
     @classmethod
     def build_from_texts(
@@ -91,6 +99,17 @@ class CharTokenizer:
         for idx in ids:
             token = self.id_to_token[idx]
             if token in SPECIAL_TOKENS:
+                continue
+            out_tokens.append(token)
+        return "".join(out_tokens)
+
+    def decode_with_special(self, ids: List[int]) -> str:
+        """Decode preserving <think> and </think> markers for parsing."""
+        out_tokens = []
+        for idx in ids:
+            token = self.id_to_token[idx]
+            # Skip structural tokens but keep think markers
+            if token in ("<pad>", "<unk>", "<bos>", "<eos>", "<sep>"):
                 continue
             out_tokens.append(token)
         return "".join(out_tokens)

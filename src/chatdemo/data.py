@@ -16,11 +16,14 @@ class ChatPair:
     """One sample for training.
 
     `context_turns` keeps previous turns to support multi-turn context.
+    `think` is an optional reasoning chain inserted between prompt and reply
+    during training to teach the model the Thinking Mode pattern.
     """
 
     context: str
     reply: str
     context_turns: List[str] = field(default_factory=list)
+    think: str = ""
 
 
 def _as_text(value: Any) -> str:
@@ -103,36 +106,41 @@ def _extract_turns(value: object) -> List[str]:
 
 
 def _extract_pair_fields(record: Dict[str, Any], max_context_turns: int) -> ChatPair:
+    think = _as_text(record.get("think"))
+
+    def _clip(turns: List[str]) -> List[str]:
+        return turns[-max_context_turns:] if max_context_turns > 0 else turns
+
     if "context" in record and "reply" in record:
         context = _as_text(record.get("context"))
         reply = _as_text(record.get("reply"))
         turns = _extract_turns(record.get("history") or record.get("conversation"))
-        return ChatPair(context=context, reply=reply, context_turns=turns[-max_context_turns:] if max_context_turns > 0 else turns)
+        return ChatPair(context=context, reply=reply, context_turns=_clip(turns), think=think)
 
     if "user" in record and "assistant" in record:
         context = _as_text(record.get("user"))
         reply = _as_text(record.get("assistant"))
         turns = _extract_turns(record.get("history") or record.get("conversation"))
-        return ChatPair(context=context, reply=reply, context_turns=turns[-max_context_turns:] if max_context_turns > 0 else turns)
+        return ChatPair(context=context, reply=reply, context_turns=_clip(turns), think=think)
 
     if "question" in record and "answer" in record:
         context = _as_text(record.get("question"))
         reply = _as_text(record.get("answer"))
         turns = _extract_turns(record.get("history") or record.get("conversation"))
-        return ChatPair(context=context, reply=reply, context_turns=turns[-max_context_turns:] if max_context_turns > 0 else turns)
+        return ChatPair(context=context, reply=reply, context_turns=_clip(turns), think=think)
 
     if "prompt" in record and "response" in record:
         context = _as_text(record.get("prompt"))
         reply = _as_text(record.get("response"))
         turns = _extract_turns(record.get("history") or record.get("conversation"))
-        return ChatPair(context=context, reply=reply, context_turns=turns[-max_context_turns:] if max_context_turns > 0 else turns)
+        return ChatPair(context=context, reply=reply, context_turns=_clip(turns), think=think)
 
     # fallback: infer pair from a flat conversation-like list
     conv = _extract_turns(record.get("conversation") or record.get("history") or [])
     if len(conv) >= 2:
-        return ChatPair(context=conv[-2], reply=conv[-1], context_turns=conv[:-2][-max_context_turns:] if max_context_turns > 0 else conv[:-2])
+        return ChatPair(context=conv[-2], reply=conv[-1], context_turns=conv[:-2][-max_context_turns:] if max_context_turns > 0 else conv[:-2], think=think)
     if len(conv) == 1:
-        return ChatPair(context=conv[0], reply="", context_turns=[])
+        return ChatPair(context=conv[0], reply="", context_turns=[], think=think)
 
     raise ValueError(f"Unsupported sample fields: {record}")
 
@@ -198,11 +206,21 @@ def extract_corpus_for_vocab(pairs: Sequence[ChatPair]) -> List[str]:
         texts.extend(pair.context_turns)
         texts.append(pair.context)
         texts.append(pair.reply)
+        if pair.think:
+            texts.append(pair.think)
     return texts
 
 
 def encode_chat_pair(pair: ChatPair, tokenizer: CharTokenizer) -> List[int]:
-    """Encode a multi-turn chat pair into token IDs with explicit special tokens."""
+    """Encode a multi-turn chat pair into token IDs.
+
+    Format (with thinking):
+      [BOS] hist1 [SEP] hist2 [SEP] ... prompt [SEP]
+      <think> think_text </think> reply [EOS]
+
+    Format (without thinking):
+      [BOS] hist1 [SEP] hist2 [SEP] ... prompt [SEP] reply [EOS]
+    """
     tokens = [tokenizer.bos_id]
     for turn in pair.context_turns:
         tokens.extend(tokenizer.encode(turn, add_special_tokens=False))
@@ -210,6 +228,11 @@ def encode_chat_pair(pair: ChatPair, tokenizer: CharTokenizer) -> List[int]:
     if pair.context:
         tokens.extend(tokenizer.encode(pair.context, add_special_tokens=False))
         tokens.append(tokenizer.sep_id)
+    # Optional thinking chain
+    if pair.think:
+        tokens.append(tokenizer.think_id)
+        tokens.extend(tokenizer.encode(pair.think, add_special_tokens=False))
+        tokens.append(tokenizer.end_think_id)
     tokens.extend(tokenizer.encode(pair.reply, add_special_tokens=False))
     tokens.append(tokenizer.eos_id)
     return tokens

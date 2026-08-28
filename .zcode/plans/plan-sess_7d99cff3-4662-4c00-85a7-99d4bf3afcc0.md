@@ -1,68 +1,189 @@
-已理解：你要一个**本地空目录下、CPU 可跑、聊天对话方向、全流程覆盖训练+推理测试**的 Transformer demo，且模型必须**全自研，不使用任何第三方预训练模型权重**。下面是可直接执行的实现计划（基于已有探索：目录为空、无现成文件）。
+## 完整实施计划：RoPE + Memory Manager + Thinking Mode
 
-## 目标与约束
-- 模型从零初始化参数（随机初始化），不加载任何现成 checkpoint；
-- 仅依赖通用库（如 PyTorch、PyYAML、pytest、numpy），但不使用现成聊天大模型 API 或预训练权重；
-- 默认支持 CPU 训练与推理；
-- 给出可验证的训练/推理/对话回归测试。
+### 选定方案
+- **位置编码**：完整 RoPE（自定义 MultiHeadAttention 替代 nn.TransformerEncoder）
+- **记忆摘要**：模型自生成摘要（利用训练好的模型本身生成历史摘要句）
+- **思考模式**：本次同步实现（`<think>…</think>` 特殊 token）
 
-## 实施计划
+---
 
-### 阶段 1：项目脚手架（本地空目录初始化）
-1. 创建最小工程结构：
-`requirements.txt`, `README.md`, `configs/base.yaml`, `src/chatdemo/{__init__.py,tokenizer.py,data.py,model.py,train.py,infer.py,chat_cli.py}`, `tests/{test_tokenizer.py,test_data.py,test_train_smoke.py,test_infer_smoke.py,test_chat_cli.py}`, `.github/workflows/ci.yml`。
-2. `requirements.txt` 固定可复现版本（如 `torch`, `pyyaml`, `numpy`, `pytest`, `torchtext` 可选）。
-3. `README.md` 写清楚：CPU 运行方式、训练数据准备、训练和推理命令。
+### 改动文件清单
 
-### 阶段 2：全自研数据与分词（拒绝第三方模型）
-1. 实现 `data.py`：读取纯文本对话文件（建议支持 JSONL/CSV，字段如 `context`, `reply`）；
-2. 先做“从零字符级/词级 tokenizer”而非外部 tokenizer 模型：
-   - 以训练语料统计频次构建词表或字符表；
-   - 生成 `<pad>, <unk>, <bos>, <eos>` 固定 token；
-   - 输出 `vocab.json` 与 `Tokenizer` 编码/解码函数；
-3. 生成训练样本为 `(x, y)`：对每条 `context+reply` 构造 `tokens[:-1] -> tokens[1:]` 的 LM 监督；
-4. 支持可切换为外部语料（如 Cornell/DailyDialog）但仅作为文本数据源，不加载预训练权重。
+| 文件 | 改动类型 | 说明 |
+|---|---|---|
+| `src/chatdemo/model.py` | **重写** | 引入 RoPE + 自定义 MultiHeadSelfAttention + TransformerBlock，移除 nn.TransformerEncoder |
+| `src/chatdemo/tokenizer.py` | **扩展** | 新增 `<think>`、`</think>` 两个特殊 token |
+| `src/chatdemo/data.py` | **扩展** | `encode_chat_pair` 支持可选 `think_text` 字段；新增 `encode_chat_prompt_with_thinking` |
+| `src/chatdemo/memory.py` | **新建** | `ConversationMemory` 类（permanent_summary + recent_turns deque + compact()） |
+| `src/chatdemo/infer.py` | **扩展** | `generate_text` 解析 `<think>…</think>` 分离推理链与最终回复 |
+| `src/chatdemo/chat_cli.py` | **重写** | main() 维护 `ConversationMemory` 实例，接入 memory 和 thinking 显示 |
+| `configs/base.yaml` | **扩展** | 新增 `memory` 和 `thinking` 配置节，seq_len 改为 512 |
+| `data/sample_conversations.jsonl` | **扩展** | 在 10 条样本中新增 `"think"` 字段，构建思考模式训练样本 |
+| `tests/test_memory.py` | **新建** | 测试 push/compact/build_context_prompt 逻辑 |
+| `tests/test_thinking.py` | **新建** | 测试 think token 的编解码与推理分离 |
 
-### 阶段 3：全自研 Transformer 模型
-1. `model.py` 使用 `torch.nn.Transformer` + 自定义 embedding/位置编码 + `lm_head` 组装 tiny decoder-only 或小型 seq2seq（优先实现更简单稳定的 decoder-only）；
-2. 参数初始值从头开始随机初始化；
-3. 实现 causal mask 与 padding mask，确保训练时无未来信息泄漏；
-4. `forward` 只做前向 logits 输出，`generate` 支持 greedy + 可选 top-k/top-p；
-5. 提供 CPU-friendly 默认超参：`d_model=128`, `nhead=4`, `n_layers=2`, `ff_dim=256`, `seq_len=64~96`。
+---
 
-### 阶段 4：训练流程（train）
-1. `train.py`：
-   - 支持配置文件 + 命令行参数（seed、batch_size、lr、max_steps、epochs）；
-   - 训练循环 + 验证（loss、perplexity）+ 早停（可选）+ checkpoint 保存；
-   - `torch.device('cpu')` 强制 CPU。
-2. 输出 artifacts：`checkpoint.pt`, `metrics.jsonl`, `config.json`，用于推理回放与可重复性。
+### 详细实现说明
 
-### 阶段 5：推理与聊天测试（infer/chat）
-1. `infer.py`：给定 checkpoint + prompt，执行生成并返回文本、耗时与 token 数；
-2. `chat_cli.py`：命令行聊天循环（exit/quit 停止）；
-3. 增加一条可选 FastAPI 路由（`/chat`）示例文件（可后续扩展）。
+#### Step 1 — `model.py` 引入 RoPE
 
-### 阶段 6：测试体系（必须覆盖训练和推理）
-1. 单元测试：
-   - tokenizer 可逆性；
-   - 数据 padding/shape 正确；
-   - 模型 forward/logits 形状与掩码逻辑；
-2. Smoke test：
-   - 极小数据/极短步数下完成一次 `train` 并产出 checkpoint；
-   - 基于该 checkpoint 完成一次 `infer`，输出非空并带停止 token；
-3. 回归测试：
-   - 固定 seed 下同一输入在同一模型上输出一致；
-   - `chat_cli` 至少一次问答流程可运行。
-4. CI（`.github/workflows/ci.yml`）在 CPU runner 上依次跑：`tests/test_train_smoke.py` -> `tests/test_infer_smoke.py` -> `tests/test_chat_cli.py`。
+新增 `RoPEEmbedding` 类：
+```python
+class RoPEEmbedding:
+    # 动态计算 sin/cos 旋转矩阵，不存储参数
+    def apply(self, q, k):  # q/k shape: [B, H, T, head_dim]
+        # 乘旋转矩阵：偶数维 cos，奇数维 sin 交叉
+```
 
-### 阶段 7：交付与验收
-1. 在 README 给出最小可复现命令（安装、训练、推理、聊天）；
-2. 给出“预期效果”与“CPU 性能范围”（例如 2-4 层、`batch=16` 小样本 5~10 分钟内完成 smoke）；
-3. 可选增强：加入 BLEU/人工打分脚本、top-k/top-p 对比与采样温度实验。
+新增 `MultiHeadSelfAttention(nn.Module)`：
+```python
+# 替代 nn.MultiheadAttention，内嵌 RoPE
+# 包含：Q/K/V projection → RoPE 旋转 Q/K → scaled dot-product → causal mask → out projection
+```
 
-## 结果确认标准（DoD）
-- 无任何预训练模型加载；
-- `python -m pytest tests` 在空环境下可跑通（至少 smoke）；
-- 可在 CPU 上完成一次 end-to-end：`训练 -> 保存权重 -> 推理 -> chat`。
+新增 `TransformerBlock(nn.Module)`（= SelfAttn + FFN + 2× LayerNorm，Pre-LN 顺序）
 
-如果你认可此方案，我会按该结构直接写出每个文件的具体代码与超参配置。
+修改 `TinyTransformerLM`：
+- 删除 `self.pos_emb = nn.Embedding(max_seq_len, d_model)`
+- 删除 `nn.TransformerEncoder`
+- 改为 `self.blocks = nn.ModuleList([TransformerBlock(...) for _ in range(n_layers)])`
+- forward 中去掉 pos_emb，改为 RoPE 在 SelfAttn 内部处理
+- **参数量不变**（RoPE 没有参数，只是旋转计算）
+
+#### Step 2 — `tokenizer.py` 新增特殊 token
+
+```python
+SPECIAL_TOKENS = ["<pad>", "<unk>", "<bos>", "<eos>", "<sep>", "<think>", "</think>"]
+```
+新增 `think_id` / `end_think_id` property，与其他特殊 token 完全对称。
+
+#### Step 3 — `data.py` 训练数据支持 think 字段
+
+`encode_chat_pair` 新增分支：
+```
+[BOS] hist1 [SEP] hist2 [SEP] prompt [SEP]
+<think> think_text </think>
+reply [EOS]
+```
+若样本无 `think` 字段，格式保持原样（向前兼容）。
+
+#### Step 4 — `memory.py` 实现 ConversationMemory
+
+```python
+class ConversationMemory:
+    def __init__(self, recent_window=8, compact_threshold=8, summary_max_tokens=40):
+        self.permanent_summary: str = ""   # 永久摘要，随轮数增长
+        self.recent_turns: deque = deque(maxlen=recent_window)  # 原文滑动窗口
+
+    def push(self, user_msg: str, assistant_reply: str):
+        # 将一轮对话压入 recent_turns
+
+    def should_compact(self) -> bool:
+        # recent_turns 达到 compact_threshold 时返回 True
+
+    def compact(self, model, tokenizer, max_tokens=40):
+        # prompt = "请用一句话总结以下对话：\n" + recent_turns 前半部分
+        # 调用 generate_text 生成摘要句
+        # permanent_summary += "\n" + 摘要句
+        # 从 recent_turns 中弹出已摘要的轮次
+
+    def build_context_turns(self) -> List[str]:
+        # 返回 [permanent_summary] + list(recent_turns)
+        # 如果 permanent_summary 为空则不插入
+```
+
+#### Step 5 — `infer.py` 解析 thinking 链
+
+`generate_text` 返回值新增字段：
+```python
+return {
+    "prompt": prompt,
+    "response": response_text,     # </think> 之后到 EOS 之前的文字
+    "thinking": thinking_text,     # <think>…</think> 之间的文字（可为空字符串）
+    "steps": len(response_ids),
+    "elapsed_sec": elapsed,
+}
+```
+分离逻辑：找到 `<think>` 和 `</think>` 的位置，切割 response_ids。
+
+#### Step 6 — `chat_cli.py` 接入 memory + thinking 展示
+
+```python
+def main():
+    memory = ConversationMemory(recent_window=cfg.memory.recent_window)
+    while True:
+        user_msg = input("你: ")
+        context_turns = memory.build_context_turns()
+        res = generate_reply(..., context_turns=context_turns)
+        
+        if args.show_thinking and res["thinking"]:
+            print(f"[思考过程] {res['thinking']}")
+        print(f"助手: {res['response']}")
+        
+        memory.push(user_msg, res["response"])
+        if memory.should_compact():
+            memory.compact(model, tokenizer)
+```
+
+#### Step 7 — `configs/base.yaml` 新增配置节
+
+```yaml
+model:
+  d_model: 128
+  nhead: 4
+  n_layers: 2
+  ff_dim: 192
+  dropout: 0.1
+  pos_encoding: rope    # ← 新增
+
+data:
+  seq_len: 512          # ← 从 128 改为 512（RoPE 支持任意长度，训练用 512）
+
+memory:
+  recent_window: 8
+  compact_threshold: 8
+  summary_max_tokens: 40
+
+thinking:
+  enabled: true
+  expose_thinking: false
+```
+
+#### Step 8 — 扩充训练数据中的 think 样本
+
+在 `sample_conversations.jsonl` 中，挑选 10 条问答加入 `"think"` 字段，例如：
+```json
+{"context": "什么是 Transformer？", "think": "用户在询问技术概念，需要给出简明的定义并强调核心机制。", "reply": "Transformer 是一种基于自注意力机制的深度学习架构…"}
+```
+
+#### Step 9 — 新增测试
+
+`tests/test_memory.py`：
+- push 多轮后 `recent_turns` 长度正确
+- `should_compact` 触发时机正确
+- `build_context_turns` 返回永久摘要 + 近端历史的拼接
+
+`tests/test_thinking.py`：
+- tokenizer 正确编解码 `<think>` / `</think>`
+- `generate_text` 在有 `<think>` token 时能正确分离 `thinking` 和 `response` 字段
+
+#### Step 10 — 重新训练并端到端验证
+
+删除旧 vocab.json 和 checkpoint，用新配置重新训练 600~800 steps，验证：
+- `pytest` 全量 13 项测试通过（新增 2 个测试文件）
+- CLI 多轮对话：10 轮后第 1 轮信息依然通过 `permanent_summary` 出现在上下文中
+- thinking 字段在 `--show-thinking` 时可见
+
+---
+
+### 执行顺序（实际编码时的依赖顺序）
+
+1. tokenizer.py（新增特殊 token，其他模块依赖）
+2. model.py（RoPE + TransformerBlock）
+3. data.py（扩展 encode_chat_pair）
+4. memory.py（新建）
+5. infer.py（分离 thinking/response）
+6. chat_cli.py（接入 memory）
+7. configs/base.yaml + 数据扩充
+8. 新增测试 → 重新训练 → 全量验证

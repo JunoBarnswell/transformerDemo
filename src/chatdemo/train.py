@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -322,7 +323,8 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
     inference_prompts = _resolve_inference_prompts(data_cfg, train_cfg, pairs)
 
     step = 0
-    best_loss = float("inf")
+    best_loss = float("inf")       # tracks best val_loss for early stopping
+    best_train_loss = float("inf") # fallback: best train loss for best.pt when val is degenerate
     final_ckpt = output_dir / "checkpoint.pt"
     no_improve_steps = 0
     should_stop = False
@@ -344,14 +346,27 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
             opt.step()
 
             step += 1
+            train_loss_val = loss.item()
             ppl = torch.exp(loss.detach().cpu()).item()
-            _append_jsonl(log_paths["train"], {"step": step, "split": "train", "loss": float(loss.item()), "ppl": float(ppl)})
+            _append_jsonl(log_paths["train"], {"step": step, "split": "train", "loss": float(train_loss_val), "ppl": float(ppl)})
+
+            # Save best.pt from train loss as a fallback (overwritten by val-based save below
+            # when a finite val_loss is available; ensures best.pt always exists after training).
+            if math.isfinite(train_loss_val) and train_loss_val < best_train_loss:
+                best_train_loss = train_loss_val
+                best_pt = output_dir / "best.pt"
+                if not best_pt.exists() or best_loss == float("inf"):
+                    save_checkpoint(model, tokenizer, cfg, step, best_pt)
 
             if step % log_interval == 0:
-                print(f"step={step} loss={loss.item():.4f} ppl={ppl:.2f}")
+                print(f"step={step} loss={train_loss_val:.4f} ppl={ppl:.2f}")
 
             if eval_interval > 0 and step % eval_interval == 0:
                 val_loss = evaluate(model, loader, criterion, device)
+                # Guard: NaN/Inf from a freshly-initialised model would never satisfy
+                # val_loss < best_loss (float("inf")), so clamp to inf to keep logic correct.
+                if not math.isfinite(val_loss):
+                    val_loss = float("inf")
                 _append_jsonl(log_paths["train"], {"step": step, "split": "val", "loss": float(val_loss)})
                 print(f"eval step={step} val_loss={val_loss:.4f}")
 
@@ -360,6 +375,7 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
                     best_loss = val_loss
                     no_improve_steps = 0
                     improved = True
+                    # Val-based best.pt — always takes priority over train-loss fallback
                     save_checkpoint(model, tokenizer, cfg, step, output_dir / "best.pt")
 
                 if not improved:
