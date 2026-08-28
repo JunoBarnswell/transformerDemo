@@ -1,0 +1,42 @@
+seed: 42
+
+vision:
+  input_size: 640
+  num_classes: 1
+  class_names: [defect]
+  segmentation_classes: 2
+  backbone_channels: [16, 32, 64, 128, 256]
+  backbone_depths: [1, 1, 2, 2, 1]
+  neck_channels: [16, 32, 64, 128, 256]
+  use_p5: auto
+  detect_levels: [P2, P3, P4]
+  reg_max: 16
+  confidence_threshold: 0.25
+  nms_threshold: 0.7
+  max_detections: 100
+  tile_threshold_px: 4.0
+
+# Production/few-shot runs must provide a real converted project checkpoint.
+# Set mode: random only for an explicit development run with a labeled manifest.
+vision_init:
+  mode: project_base
+  checkpoint: weights/vision_base.pt
+  # Required only when mode is yolov8_transfer; every target tensor must be mapped explicitly.
+  # mapping: configs/yolov8_to_chatdemo_mapping.json
+
+data:
+  manifest: data/vision_manifest.jsonl
+
+training:
+  task: multitask
+  fewshot_stage: f4
+  output_dir: outputs/vision
+  batch_size: 2
+  num_workers: 0
+  max_steps: 1000
+  learning_rate: 0.001
+  regression_learning_rate: 0.0001
+  weight_decay: 0.0001
+  grad_clip: 1.0
+  save_interval: 100
+  device: cpu
