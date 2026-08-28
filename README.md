@@ -130,3 +130,54 @@ PYTHONPATH=src python -m chatdemo.plot_loss \
 python -m pytest tests/ -q
 # 输出: 32 passed in 16.46s (100% 通过)
 ```
+
+---
+
+## 工业缺陷视觉双主线（Issue #1）
+
+视觉模块位于 `src/chatdemo/vision/`，只共享一套 Backbone + 多尺度 Neck，之后分叉为两个独立任务头：
+
+- Detection Head：P2/P3/P4（可选 P5），Anchor-Free、解耦分类/回归、DFL `reg_max=16`、Task-Aligned Assigner、CIoU/BCE/NMS；框不会由 mask 派生；
+- Segmentation Decoder：使用 P1/P2/P3/P4 输出独立语义 mask，支持 CE/Focal + Dice；检测和分割可以使用不同标注集；
+- 输入内部采用 640 Letterbox，API 中的 `box_xyxy` 统一为原图映射后的 canonical `640×640` 坐标；mask 与 annotated image 恢复为原图尺寸；
+- 可选重叠 Tile 用于大图极小缺陷，Tile 结果最终仍合并到同一个 canonical 坐标系。
+
+### 视觉数据 manifest
+
+每行一个 JSON 对象，路径相对 manifest 文件解析。`boxes` 字段存在但为空代表检测负样本；字段缺失代表没有该任务监督，不能被当作负样本。
+
+```json
+{"image":"ok.jpg","boxes":[],"labels":[]}
+{"image":"box.jpg","boxes":[[12,20,80,90]],"labels":[0]}
+{"image":"mask.jpg","mask":"mask.png"}
+{"image":"both.jpg","boxes":[{"box":[12,20,80,90],"label":0}],"mask":"both_mask.png"}
+```
+
+### 训练与推理
+
+`configs/vision.yaml` 的默认初始化模式是 `project_base`，要求提供真实的 `weights/vision_base.pt`。只有显式改为 `random` 才允许开发/单元冒烟从随机参数开始；缺少生产权重时不会静默降级。
+
+```bash
+# 真实标注 manifest + project_base 权重
+PYTHONPATH=src python -m chatdemo.vision.train --config configs/vision.yaml
+
+# 仅在明确的开发配置中使用 random 初始化
+PYTHONPATH=src python -m chatdemo.analyze_image \
+  --image path/to/image.jpg \
+  --checkpoint outputs/vision/checkpoint.pt \
+  --output-dir outputs/vision \
+  --return-json
+```
+
+也可分别运行 `chatdemo.detect`、`chatdemo.segment`，或给现有 `chatdemo.chat_cli` 同时传入 `--image` 与 `--vision-checkpoint`，将一次视觉分析作为可检查的显式文本上下文复用于多轮聊天。
+
+### YOLOv8 对标边界
+
+```bash
+PYTHONPATH=src python -m chatdemo.vision.benchmark \
+  --checkpoint outputs/vision/checkpoint.pt \
+  --manifest path/to/manifest.jsonl \
+  --yolov8-weights path/to/yolov8n.pt
+```
+
+benchmark 要求同一 manifest、同一 640 输入和真实 YOLOv8 权重；没有这些外部材料时不会输出伪造的 parity 结论。当前仓库未包含工业视觉数据、`vision_base.pt` 或 YOLOv8 权重，因此这部分需要使用者提供数据与经过许可审查的权重后才能完成实测。

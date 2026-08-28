@@ -7,4 +7,5 @@ __all__ = [
     "model",
     "tokenizer",
     "train",
+    "vision",
 ]

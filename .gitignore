@@ -54,3 +54,7 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Industrial vision data and model artifacts are supplied out of band.
+weights/
+outputs/vision/

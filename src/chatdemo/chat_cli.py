@@ -27,6 +27,14 @@ def parse_args() -> argparse.Namespace:
                         help="Trigger memory compaction after this many recent turns")
     parser.add_argument("--memory-file", default=None,
                         help="JSON file to persist/resume memory across sessions")
+    parser.add_argument("--image", default=None,
+                        help="Optional image to analyze once and reuse as explicit chat context")
+    parser.add_argument("--vision-checkpoint", default=None,
+                        help="Vision checkpoint required together with --image")
+    parser.add_argument("--tile-mode", choices=("off", "on", "auto"), default="off",
+                        help="Use original-image tile inference for the optional visual context")
+    parser.add_argument("--estimated-defect-short-side", type=float, default=None,
+                        help="Estimated defect short side in model pixels for --tile-mode auto")
     return parser.parse_args()
 
 
@@ -77,8 +85,24 @@ def main() -> None:
             compact_threshold=args.compact_threshold,
         )
 
+    vision_context = []
+    if (args.image is None) != (args.vision_checkpoint is None):
+        raise ValueError("--image and --vision-checkpoint must be supplied together")
+    if args.image and args.vision_checkpoint:
+        from .analyze_image import analyze_image
+        from .vision.adapters import vision_result_to_context
+
+        tile_mode = {"off": False, "on": True, "auto": "auto"}[args.tile_mode]
+        vision_result = analyze_image(
+            args.image,
+            args.vision_checkpoint,
+            tile_mode=tile_mode,
+            estimated_defect_short_side=args.estimated_defect_short_side,
+        )
+        vision_context.append(vision_result_to_context(vision_result))
+
     def _reply(user_msg: str) -> dict:
-        context_turns = memory.build_context_turns()
+        context_turns = [*vision_context, *memory.build_context_turns()]
         result = generate_text(
             model=model,
             tokenizer=tokenizer,
