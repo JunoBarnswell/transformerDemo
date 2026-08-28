@@ -5,6 +5,7 @@ data:
   vocab_path: data/vocab.json
   vocab_size: 2000
   seq_len: 64
+  max_context_turns: 4
 
 train:
   output_dir: outputs/run
@@ -17,6 +18,10 @@ train:
   eval_interval: 5
   save_interval: 5
   log_interval: 1
+  train_log_file: train_log.jsonl
+  loss_curve_file: loss_curve.json
+  inference_log_file: inference_log.jsonl
+  num_infer_prompts: 3
 
 model:
   d_model: 64

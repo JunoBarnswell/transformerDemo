@@ -58,3 +58,6 @@ def test_train_smoke(tmp_path: Path):
     assert res.returncode == 0, res.stderr
     assert (out_dir / "checkpoint.pt").exists()
     assert (out_dir / "best.pt").exists()
+    assert (out_dir / "train_log.jsonl").exists()
+    assert (out_dir / "loss_curve.json").exists()
+    assert (out_dir / "inference_log.jsonl").exists()

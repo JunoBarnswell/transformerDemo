@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
-import random
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import numpy as np
 import torch
@@ -13,12 +12,21 @@ from torch import nn
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
 
-from .data import ChatDataset, build_vocab_if_missing, collate_chat_batch, load_pairs
+from .data import (
+    ChatDataset,
+    build_vocab_if_missing,
+    collate_chat_batch,
+    load_pairs,
+    select_eval_prompts,
+)
+from .infer import generate_text
 from .model import TinyTransformerLM, TransformerConfig
 from .tokenizer import CharTokenizer
 
 
 def set_seed(seed: int) -> None:
+    import random
+
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -45,6 +53,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eval-interval", type=int, dest="eval_interval")
     parser.add_argument("--save-interval", type=int, dest="save_interval")
     parser.add_argument("--log-interval", type=int, dest="log_interval")
+    parser.add_argument("--max-context-turns", type=int, dest="max_context_turns")
+    parser.add_argument("--train-log-file", dest="train_log_file")
+    parser.add_argument("--loss-curve-file", dest="loss_curve_file")
+    parser.add_argument("--inference-log-file", dest="inference_log_file")
+    parser.add_argument("--inference-prompts-file", dest="inference_prompts_file")
+    parser.add_argument("--num-infer-prompts", type=int, dest="num_infer_prompts")
     parser.add_argument("--d-model", type=int, dest="d_model")
     parser.add_argument("--nhead", type=int)
     parser.add_argument("--n-layers", type=int, dest="n_layers")
@@ -52,15 +66,89 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dropout", type=float)
     parser.add_argument("--seed", type=int)
     parser.add_argument("--output-dir", dest="output_dir")
-    parser.add_argument("--log-level", default="INFO")
     parser.add_argument("--num-workers", type=int, dest="num_workers", default=0)
     return parser.parse_args()
+
+
+def _append_jsonl(path: Path, payload: Dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(payload, ensure_ascii=False) + "\n")
+
+
+def _load_prompt_list(value: Any) -> List[str]:
+    if not value:
+        return []
+    if isinstance(value, list):
+        return [str(x).strip() for x in value if str(x).strip()]
+    if isinstance(value, str):
+        return [value.strip()]
+    return []
+
+
+def _read_prompt_file(path: str) -> List[str]:
+    prompts: List[str] = []
+    text = Path(path).read_text(encoding="utf-8")
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        try:
+            obj = json.loads(stripped)
+            if isinstance(obj, dict) and "context" in obj:
+                prompts.append(str(obj["context"]).strip())
+            elif isinstance(obj, str):
+                prompts.append(obj.strip())
+            else:
+                prompts.append(stripped)
+        except json.JSONDecodeError:
+            prompts.append(stripped)
+    return [p for p in prompts if p]
+
+
+def _resolve_train_log_paths(output_dir: Path, train_cfg: Dict[str, Any]) -> Dict[str, Path]:
+    return {
+        "train": output_dir / str(train_cfg.get("train_log_file", "train_log.jsonl")),
+        "loss_curve": output_dir / str(train_cfg.get("loss_curve_file", "loss_curve.json")),
+        "inference": output_dir / str(train_cfg.get("inference_log_file", "inference_log.jsonl")),
+    }
+
+
+def _resolve_inference_prompts(
+    data_cfg: Dict[str, Any],
+    train_cfg: Dict[str, Any],
+    default_pairs: List[Any],
+) -> List[str]:
+    prompts = _load_prompt_list(data_cfg.get("inference_prompts"))
+
+    prompt_file = data_cfg.get("inference_prompts_file") or train_cfg.get("inference_prompts_file")
+    if not prompt_file and train_cfg.get("inference_prompts_file"):
+        prompt_file = train_cfg.get("inference_prompts_file")
+
+    if isinstance(prompt_file, str) and prompt_file.strip():
+        prompts.extend(_read_prompt_file(prompt_file))
+
+    if not prompts:
+        prompts.extend(select_eval_prompts(default_pairs, max_prompts=int(train_cfg.get("num_infer_prompts", 3) or 3)))
+    else:
+        # dedupe while keep order
+        seen = set()
+        unique_prompts: List[str] = []
+        for p in prompts:
+            if p not in seen:
+                seen.add(p)
+                unique_prompts.append(p)
+        if int(train_cfg.get("num_infer_prompts", 0) or 0) > 0:
+            unique_prompts = unique_prompts[: int(train_cfg["num_infer_prompts"])]
+        prompts = unique_prompts
+
+    return prompts[: int(train_cfg.get("num_infer_prompts", 3) or 3)]
 
 
 def _merge_config(base: Dict[str, Any], args: argparse.Namespace) -> Dict[str, Any]:
     merged = dict(base)
 
-    # Ensure base sections exist.
+    merged.setdefault("seed", 42)
     merged.setdefault("data", {})
     merged.setdefault("train", {})
     merged.setdefault("model", {})
@@ -69,13 +157,15 @@ def _merge_config(base: Dict[str, Any], args: argparse.Namespace) -> Dict[str, A
     if args.seed is not None:
         merged["seed"] = args.seed
 
-    # dict overrides
     overrides = {
         "data": {
             "data_file": args.data_file,
             "vocab_path": args.vocab_path,
             "vocab_size": args.vocab_size,
             "seq_len": args.seq_len,
+            "max_context_turns": args.max_context_turns,
+            "inference_prompts": merged.get("data", {}).get("inference_prompts"),
+            "inference_prompts_file": merged.get("data", {}).get("inference_prompts_file") or args.inference_prompts_file,
         },
         "train": {
             "batch_size": args.batch_size,
@@ -88,6 +178,11 @@ def _merge_config(base: Dict[str, Any], args: argparse.Namespace) -> Dict[str, A
             "log_interval": args.log_interval,
             "output_dir": args.output_dir,
             "num_workers": args.num_workers,
+            "train_log_file": args.train_log_file,
+            "loss_curve_file": args.loss_curve_file,
+            "inference_log_file": args.inference_log_file,
+            "inference_prompts_file": args.inference_prompts_file,
+            "num_infer_prompts": args.num_infer_prompts,
         },
         "model": {
             "d_model": args.d_model,
@@ -147,6 +242,16 @@ def save_checkpoint(model: TinyTransformerLM, tokenizer: CharTokenizer, cfg: Dic
     )
 
 
+def _generation_settings(cfg: Dict[str, Any]) -> Dict[str, Any]:
+    gen = cfg.get("generation", {})
+    return {
+        "max_new_tokens": int(gen.get("max_new_tokens", 24)),
+        "temperature": float(gen.get("temperature", 1.0)),
+        "top_k": int(gen.get("top_k", 0)),
+        "top_p": float(gen.get("top_p", 1.0)),
+    }
+
+
 def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
     seed = cfg["seed"]
     set_seed(seed)
@@ -158,7 +263,7 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
     model_cfg = cfg["model"]
 
     data_file = data_cfg["data_file"]
-    pairs = load_pairs(data_file)
+    pairs = load_pairs(data_file, max_context_turns=int(data_cfg.get("max_context_turns", 4)))
 
     vocab_path = data_cfg["vocab_path"]
     tokenizer = build_vocab_if_missing(
@@ -202,6 +307,14 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
 
     output_dir = Path(train_cfg["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
+    log_paths = _resolve_train_log_paths(output_dir, train_cfg)
+    for p in log_paths.values():
+        p.parent.mkdir(parents=True, exist_ok=True)
+        if p.exists():
+            p.unlink()
+
+    gen_cfg = _generation_settings(cfg)
+    inference_prompts = _resolve_inference_prompts(data_cfg, train_cfg, pairs)
 
     step = 0
     best_loss = float("inf")
@@ -224,17 +337,39 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
             opt.step()
 
             step += 1
+            ppl = torch.exp(loss.detach().cpu()).item()
+            _append_jsonl(log_paths["train"], {"step": step, "split": "train", "loss": float(loss.item()), "ppl": float(ppl)})
 
             if step % log_interval == 0:
-                ppl = torch.exp(loss.detach().cpu()).item()
                 print(f"step={step} loss={loss.item():.4f} ppl={ppl:.2f}")
 
             if eval_interval > 0 and step % eval_interval == 0:
                 val_loss = evaluate(model, loader, criterion, device)
+                _append_jsonl(log_paths["train"], {"step": step, "split": "val", "loss": float(val_loss)})
                 print(f"eval step={step} val_loss={val_loss:.4f}")
+
                 if val_loss < best_loss:
                     best_loss = val_loss
                     save_checkpoint(model, tokenizer, cfg, step, output_dir / "best.pt")
+
+                for prompt in inference_prompts:
+                    gen = generate_text(
+                        model=model,
+                        tokenizer=tokenizer,
+                        prompt=prompt,
+                        max_new_tokens=gen_cfg["max_new_tokens"],
+                        temperature=gen_cfg["temperature"],
+                        top_k=gen_cfg["top_k"],
+                        top_p=gen_cfg["top_p"],
+                    )
+                    _append_jsonl(
+                        log_paths["inference"],
+                        {
+                            "step": step,
+                            "type": "eval_sample",
+                            **gen,
+                        },
+                    )
 
             if save_interval > 0 and step % save_interval == 0:
                 save_checkpoint(model, tokenizer, cfg, step, output_dir / f"checkpoint_step_{step}.pt")
@@ -248,10 +383,39 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
     save_checkpoint(model, tokenizer, cfg, step, final_ckpt)
     print(f"training finished. checkpoint={final_ckpt}")
 
+    # rebuild train log file into one JSON curve for easy plotting
+    # (the raw jsonl is enough for streaming, this summary file is for convenience)
+    train_curve = []
+    val_curve = []
+    for line in log_paths["train"].read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        payload = json.loads(line)
+        if payload.get("split") == "train":
+            train_curve.append(payload)
+        elif payload.get("split") == "val":
+            val_curve.append(payload)
+
+    with log_paths["loss_curve"].open("w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "train": train_curve,
+                "val": val_curve,
+                "best_loss": best_loss if best_loss < float("inf") else None,
+                "steps": step,
+            },
+            f,
+            ensure_ascii=False,
+            indent=2,
+        )
+
     return {
         "checkpoint": str(final_ckpt),
         "steps": step,
         "best_loss": best_loss if best_loss < float("inf") else None,
+        "train_log": str(log_paths["train"]),
+        "loss_curve": str(log_paths["loss_curve"]),
+        "inference_log": str(log_paths["inference"]),
     }
 
 
@@ -259,12 +423,14 @@ def main() -> None:
     args = parse_args()
     raw_cfg = load_yaml(args.config)
 
-    # Fill missing sections for deterministic behavior when config file不完整。
+    # Fill missing sections for deterministic behavior when config is incomplete.
     raw_cfg.setdefault("seed", 42)
     raw_cfg.setdefault("data", {})
     raw_cfg.setdefault("train", {})
     raw_cfg.setdefault("model", {})
+    raw_cfg.setdefault("generation", {})
 
+    # keep compatibility: allow max_context_turns in root train/data sections
     cfg = _merge_config(raw_cfg, args)
 
     result = train(cfg)

@@ -4,6 +4,7 @@ import argparse
 import json
 import time
 from pathlib import Path
+from typing import Any, Dict
 
 import torch
 
@@ -23,9 +24,9 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def load_bundle(checkpoint: str):
+def load_checkpoint_bundle(checkpoint: str):
     payload = torch.load(checkpoint, map_location="cpu")
-    cfg = payload["config"]
+    cfg: Dict[str, Any] = payload["config"]
     token = CharTokenizer(token_to_id=payload["token_to_id"], id_to_token=payload["id_to_token"])
 
     mcfg = cfg["model"]
@@ -42,22 +43,20 @@ def load_bundle(checkpoint: str):
     model = TinyTransformerLM(tcfg)
     model.load_state_dict(payload["model_state"])
     model.eval()
-    return model, token, payload
+    return model, token, cfg
 
 
-def generate_reply(
-    checkpoint: str,
+def generate_text(
+    model: TinyTransformerLM,
+    tokenizer: CharTokenizer,
     prompt: str,
     max_new_tokens: int = 32,
     temperature: float = 1.0,
     top_k: int = 0,
     top_p: float = 1.0,
-) -> dict:
-    model, tokenizer, payload = load_bundle(checkpoint)
+) -> Dict[str, Any]:
     input_ids = torch.tensor([[tokenizer.bos_id] + tokenizer.encode(prompt, add_special_tokens=False)], dtype=torch.long)
-
     if input_ids.size(1) >= model.cfg.max_seq_len:
-        # keep a valid context window
         input_ids = input_ids[:, -model.cfg.max_seq_len :]
 
     start = time.time()
@@ -83,6 +82,19 @@ def generate_reply(
         "steps": len(response_ids),
         "elapsed_sec": elapsed,
     }
+
+
+def generate_reply(
+    checkpoint: str,
+    prompt: str,
+    max_new_tokens: int = 32,
+    temperature: float = 1.0,
+    top_k: int = 0,
+    top_p: float = 1.0,
+) -> dict:
+    model, tokenizer, _ = load_checkpoint_bundle(checkpoint)
+    return generate_text(model, tokenizer, prompt, max_new_tokens, temperature, top_k, top_p)
+
 
 
 def main() -> None:
