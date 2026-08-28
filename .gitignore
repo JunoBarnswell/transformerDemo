@@ -1,34 +1,56 @@
-# Bytecode
+# Bytecode / Python
 __pycache__/
 *.py[cod]
-*.class
+*$py.class
 
 # Distribution / packaging
 build/
 dist/
-*.egg-info/
-*.egg
 .eggs/
+*.egg
+*.egg-info/
+*.whl
 
 # Environments
 .env
-.venv
-venv/
-ENV/
+.venv/
 env/
+ENV/
+venv/
+
+# Testing / CI
+.pytest_cache/
+.pytest/
+.mypy_cache/
+.pyre/
+.mypy/
+.pytype/
+.pdm-build/
+.tox/
+.nox/
+.hypothesis/
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Type checkers / linters / formatters
+.ruff_cache/
+.pyright/
+
+# Jupyter
+.ipynb_checkpoints/
 
 # IDE
 .vscode/
 .idea/
 *.iml
 
-# Logs
-*.log
-
-# OS and temporary
+# OS and temp files
 .DS_Store
 Thumbs.db
 *.tmp
-
-# Jupyter
-.ipynb_checkpoints/
+*.swp
+*.swo
+*~
