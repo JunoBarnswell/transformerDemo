@@ -28,28 +28,35 @@ def _canonical_targets(targets: Sequence[Mapping[str, Any]]) -> list[dict[str, t
 
 
 @torch.inference_mode()
-def evaluate_candidate(checkpoint: str | Path, manifest: str | Path, *, batch_size: int = 1) -> dict[str, Any]:
-    model, config, _ = load_vision_checkpoint(checkpoint)
-    dataset = VisionDataset(
-        manifest,
-        input_size=config.input_size,
-        num_classes=config.num_classes,
-        segmentation_classes=config.segmentation_classes,
-    )
+def evaluate_model(
+    model,
+    config,
+    dataset: VisionDataset,
+    *,
+    batch_size: int = 1,
+    confidence_threshold: float = 0.001,
+    max_detections: int = 300,
+) -> dict[str, Any]:
+    if not 0.0 <= confidence_threshold <= 1.0:
+        raise ValueError("evaluation confidence threshold must be in [0,1]")
+    model.eval()
+    device = next(model.parameters()).device
+    include_segmentation = any(sample.has_segmentation_label for sample in dataset.samples)
+    tasks = ("detection", "segmentation") if include_segmentation else ("detection",)
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, collate_fn=collate_vision_batch)
     all_predictions = []
     all_targets = []
     segmentation_predictions = []
     segmentation_targets = []
     for images, targets in loader:
-        outputs = model(images, tasks=("detection", "segmentation"))
+        outputs = model(images.to(device), tasks=tasks)
         batch_predictions = decode_detections(
             outputs["detection"],
             [target["transform"] for target in targets],
             reg_max=config.reg_max,
-            confidence_threshold=config.confidence_threshold,
+            confidence_threshold=confidence_threshold,
             nms_threshold=config.nms_threshold,
-            max_detections=config.max_detections,
+            max_detections=max_detections,
             class_names=config.class_names,
             levels=config.detect_levels,
         )
@@ -58,13 +65,14 @@ def evaluate_candidate(checkpoint: str | Path, manifest: str | Path, *, batch_si
             if metadata["detection_labeled"]:
                 all_predictions.append(prediction)
                 all_targets.append(target)
-        masks = outputs["segmentation"].argmax(dim=1)
-        for index, target in enumerate(targets):
-            if not target["segmentation_labeled"]:
-                continue
-            restored = restore_mask(masks[index], target["transform"], mode="nearest").round().long()
-            segmentation_predictions.append(restored)
-            segmentation_targets.append(restore_mask(target["mask"], target["transform"], mode="nearest").long())
+        if include_segmentation:
+            masks = outputs["segmentation"].argmax(dim=1)
+            for index, target in enumerate(targets):
+                if not target["segmentation_labeled"]:
+                    continue
+                restored = restore_mask(masks[index], target["transform"], mode="nearest").round().long()
+                segmentation_predictions.append(restored)
+                segmentation_targets.append(restore_mask(target["mask"], target["transform"], mode="nearest").long())
     result: dict[str, Any] = {
         "samples": len(dataset),
     }
@@ -76,6 +84,30 @@ def evaluate_candidate(checkpoint: str | Path, manifest: str | Path, *, batch_si
             segmentation_predictions, segmentation_targets, num_classes=config.segmentation_classes
         )
     return result
+
+
+@torch.inference_mode()
+def evaluate_candidate(
+    checkpoint: str | Path,
+    manifest: str | Path,
+    *,
+    batch_size: int = 1,
+    confidence_threshold: float = 0.001,
+) -> dict[str, Any]:
+    model, config, _ = load_vision_checkpoint(checkpoint)
+    dataset = VisionDataset(
+        manifest,
+        input_size=config.input_size,
+        num_classes=config.num_classes,
+        segmentation_classes=config.segmentation_classes,
+    )
+    return evaluate_model(
+        model,
+        config,
+        dataset,
+        batch_size=batch_size,
+        confidence_threshold=confidence_threshold,
+    )
 
 
 def run_benchmark(checkpoint: str | Path, manifest: str | Path, yolov8_weights: str | Path | None = None) -> dict[str, Any]:

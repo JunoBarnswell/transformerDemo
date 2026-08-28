@@ -75,18 +75,20 @@ def detection_ap(
             else:
                 tp_values.append(0)
                 fp_values.append(1)
-        per_class[class_id] = _average_precision(
-            [item[0] for item in class_predictions], tp_values, fp_values, class_gt
-        )
+        if class_gt > 0:
+            per_class[class_id] = _average_precision(
+                [item[0] for item in class_predictions], tp_values, fp_values, class_gt
+            )
         all_tp += sum(tp_values)
         all_fp += sum(fp_values)
         total_gt += class_gt
     return {
-        "ap": sum(per_class.values()) / max(num_classes, 1),
+        "ap": sum(per_class.values()) / max(len(per_class), 1),
         "precision": all_tp / max(all_tp + all_fp, 1),
         "recall": all_tp / max(total_gt, 1),
         "false_positives_per_image": all_fp / max(len(predictions), 1),
         "per_class_ap": {str(key): value for key, value in per_class.items()},
+        "evaluated_classes": [int(key) for key in per_class],
     }
 
 
@@ -106,6 +108,7 @@ def evaluate_detection(
         "recall": by_threshold[0.5]["recall"],
         "false_positives_per_image": by_threshold[0.5]["false_positives_per_image"],
         "per_class_ap50": by_threshold[0.5]["per_class_ap"],
+        "evaluated_classes": by_threshold[0.5]["evaluated_classes"],
     }
     return result
 

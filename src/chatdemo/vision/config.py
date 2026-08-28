@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from pathlib import Path
 from typing import Any, Dict, List, Sequence, Tuple
 
@@ -18,6 +18,7 @@ class VisionConfig:
     neck_channels: Tuple[int, int, int, int, int] = (16, 32, 64, 128, 256)
     use_p5: bool | str = "auto"
     detect_levels: Tuple[str, ...] = ("P2", "P3", "P4")
+    detection_hidden_channels: int = 64
     reg_max: int = 16
     confidence_threshold: float = 0.25
     nms_threshold: float = 0.7
@@ -64,6 +65,8 @@ class VisionConfig:
             raise ValueError("segmentation_classes must include background and one defect class")
         if self.reg_max <= 0:
             raise ValueError("reg_max must be positive")
+        if self.detection_hidden_channels <= 0:
+            raise ValueError("detection_hidden_channels must be positive")
         if not self.detect_levels or any(level not in {"P2", "P3", "P4", "P5"} for level in self.detect_levels):
             raise ValueError("detect_levels must contain P2/P3/P4/P5 names")
         if self.use_p5 not in (True, False, "auto"):
@@ -86,6 +89,16 @@ class VisionConfig:
         if not 0.0 <= max_object_area_fraction <= 1.0:
             raise ValueError("max_object_area_fraction must be in [0, 1]")
         return max_object_area_fraction >= 0.05
+
+    def resolve_for_dataset(self, max_object_area_fraction: float | None) -> "VisionConfig":
+        """Return one runtime config with P5 ownership fully resolved."""
+        use_p5 = self.resolve_use_p5(max_object_area_fraction)
+        levels = [level for level in self.detect_levels if level != "P5"]
+        if use_p5:
+            levels.append("P5")
+        resolved = replace(self, use_p5=use_p5, detect_levels=tuple(levels))
+        resolved.validate()
+        return resolved
 
     def to_dict(self) -> Dict[str, Any]:
         result = asdict(self)

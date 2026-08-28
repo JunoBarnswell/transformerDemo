@@ -36,10 +36,11 @@ def test_random_detection_training_writes_strict_checkpoint(tmp_path: Path):
             f"  manifest: {manifest.as_posix()}",
             "training:",
             "  task: detection",
-            "  fewshot_stage: f1",
+            "  fewshot_stage: f4",
             f"  output_dir: {(tmp_path / 'out').as_posix()}",
             "  batch_size: 1",
-            "  max_steps: 1",
+            "  max_epochs: 1",
+            "  warmup_epochs: 0",
             "  save_interval: 1",
             "  device: cpu",
         ]) + "\n",
@@ -47,6 +48,7 @@ def test_random_detection_training_writes_strict_checkpoint(tmp_path: Path):
     )
     checkpoint = train_from_config(config)
     assert checkpoint.is_file()
-    model, loaded_config, _ = load_vision_checkpoint(checkpoint)
+    model, loaded_config, payload = load_vision_checkpoint(checkpoint)
     assert loaded_config.num_classes == 1
     assert model.training is False
+    assert payload["format"] == "chatdemo-vision-v2"

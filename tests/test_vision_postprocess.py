@@ -15,9 +15,9 @@ def test_nms_removes_overlapping_boxes():
 def test_decoded_detector_boxes_are_canonical_not_letterbox_coordinates():
     # Force a deterministic distribution at a point inside the non-padded
     # region of a wide letterboxed image.
-    box_logits = torch.full((1, 68, 160, 160), -10.0)
+    box_logits = torch.full((1, 64, 160, 160), -10.0)
     for coordinate in range(4):
-        box_logits[:, coordinate * 17 + 2, 40, 40] = 10.0
+        box_logits[:, coordinate * 16 + 2, 40, 40] = 10.0
     cls_logits = torch.full((1, 2, 160, 160), -10.0)
     cls_logits[:, 0, 40, 40] = 10.0
     transform = build_image_transform(1280, 720)

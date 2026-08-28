@@ -54,8 +54,11 @@ class ConversationMemory:
     # ------------------------------------------------------------------
 
     def push(self, user_msg: str, assistant_reply: str) -> None:
-        """Record one exchange."""
-        self.recent_turns.append(f"用户: {user_msg}\n助手: {assistant_reply}")
+        """Record one exchange into recent utterances."""
+        if user_msg:
+            self.recent_turns.append(user_msg.strip())
+        if assistant_reply:
+            self.recent_turns.append(assistant_reply.strip())
 
     def should_compact(self) -> bool:
         """True when enough turns have accumulated to warrant a compaction."""

@@ -55,6 +55,7 @@ def _split_thinking(
 
     If the output contains <think>…</think>, the content inside is the
     thinking chain and the content after </think> is the final reply.
+    If only <think> is present (e.g. stopped mid-thinking), it is treated as thinking.
     Otherwise thinking_text is empty and response_text is the full output.
     """
     think_id = tokenizer.think_id
@@ -69,6 +70,9 @@ def _split_thinking(
             thinking_text = tokenizer.decode(thinking_ids)
             response_text = tokenizer.decode(reply_ids)
             return thinking_text, response_text
+    elif think_id in response_ids:
+        t_start = response_ids.index(think_id)
+        return tokenizer.decode(response_ids[t_start + 1 :]), ""
 
     # No thinking block — whole output is the reply
     return "", tokenizer.decode(response_ids)

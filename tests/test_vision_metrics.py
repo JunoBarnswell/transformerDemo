@@ -22,3 +22,13 @@ def test_segmentation_metrics_report_per_class_values():
     result = evaluate_segmentation([mask], [mask], num_classes=2)
     assert result["miou"] == 1.0
     assert result["dice"] == 1.0
+
+
+def test_detection_map_ignores_classes_without_ground_truth():
+    result = evaluate_detection(
+        [[Detection(1, 0.9, (5.0, 5.0, 20.0, 20.0))]],
+        [{"boxes": torch.tensor([[5.0, 5.0, 20.0, 20.0]]), "labels": torch.tensor([1])}],
+        num_classes=3,
+    )
+    assert result["map50"] == 1.0
+    assert result["evaluated_classes"] == [1]

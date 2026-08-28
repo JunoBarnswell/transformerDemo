@@ -43,6 +43,8 @@ class DefectVisionModel(nn.Module):
             num_classes=self.config.num_classes,
             levels=self.config.detect_levels,
             reg_max=self.config.reg_max,
+            hidden_channels=self.config.detection_hidden_channels,
+            input_size=self.config.input_size,
         )
         self.segmentation_head = LightweightSegmentationDecoder(
             feature_channels={level: neck_channel_map[level] for level in ("P1", "P2", "P3", "P4")},
@@ -123,7 +125,7 @@ def save_vision_checkpoint(
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
     payload: Dict[str, Any] = {
-        "format": "chatdemo-vision-v1",
+        "format": "chatdemo-vision-v2",
         "vision_config": model.config.to_dict(),
         "class_names": list(model.config.class_names),
         "model_state": model.state_dict(),
@@ -141,6 +143,8 @@ def load_vision_checkpoint(path: str | Path, *, map_location: str | torch.device
     payload = torch.load(checkpoint, map_location=map_location, weights_only=False)
     if not isinstance(payload, dict):
         raise ValueError("vision checkpoint must contain a mapping payload")
+    if payload.get("format") != "chatdemo-vision-v2":
+        raise ValueError("unsupported vision checkpoint format; v1 detection weights require clean retraining")
     config_payload = payload.get("vision_config")
     if not isinstance(config_payload, dict):
         raise ValueError("vision checkpoint is missing vision_config; refusing implicit architecture inference")

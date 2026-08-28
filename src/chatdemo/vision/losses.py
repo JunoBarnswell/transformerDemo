@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .coordinates import box_area
-from .detect_head import DecodedPredictions, TaskAlignedAssigner, decode_raw_predictions
+from .detect_head import TaskAlignedAssigner, decode_raw_predictions
 
 
 def ciou_loss(pred_boxes: torch.Tensor, target_boxes: torch.Tensor) -> torch.Tensor:
@@ -43,22 +43,22 @@ def ciou_loss(pred_boxes: torch.Tensor, target_boxes: torch.Tensor) -> torch.Ten
 
 
 def distribution_focal_loss(pred_logits: torch.Tensor, target: torch.Tensor, reg_max: int) -> torch.Tensor:
-    """DFL for four left/top/right/bottom distances."""
-    if pred_logits.ndim != 3 or pred_logits.shape[-1] != reg_max + 1:
-        raise ValueError("pred_logits must have shape [N,4,reg_max+1]")
+    """Return per-anchor DFL for four left/top/right/bottom distances."""
+    if pred_logits.ndim != 3 or pred_logits.shape[-1] != reg_max:
+        raise ValueError("pred_logits must have shape [N,4,reg_max]")
     if target.shape != pred_logits.shape[:2]:
         raise ValueError("DFL target must have shape [N,4]")
     if pred_logits.numel() == 0:
         return pred_logits.sum() * 0.0
-    target = target.clamp(0.0, float(reg_max) - 1e-4)
+    target = target.clamp(0.0, float(reg_max - 1) - 1e-2)
     left = target.floor().long()
-    right = (left + 1).clamp_max(reg_max)
+    right = (left + 1).clamp_max(reg_max - 1)
     right_weight = target - left.float()
     left_weight = 1.0 - right_weight
-    flat_logits = pred_logits.reshape(-1, reg_max + 1)
+    flat_logits = pred_logits.reshape(-1, reg_max)
     left_loss = F.cross_entropy(flat_logits, left.reshape(-1), reduction="none").reshape_as(target)
     right_loss = F.cross_entropy(flat_logits, right.reshape(-1), reduction="none").reshape_as(target)
-    return (left_loss * left_weight + right_loss * right_weight).mean()
+    return (left_loss * left_weight + right_loss * right_weight).mean(dim=-1)
 
 
 class DetectionLoss(nn.Module):
@@ -68,7 +68,7 @@ class DetectionLoss(nn.Module):
         self,
         num_classes: int,
         reg_max: int = 16,
-        cls_weight: float = 1.0,
+        cls_weight: float = 0.5,
         box_weight: float = 7.5,
         dfl_weight: float = 1.5,
         assigner: TaskAlignedAssigner | None = None,
@@ -92,9 +92,11 @@ class DetectionLoss(nn.Module):
         if len(targets) != batch_size:
             raise ValueError("one detection target is required per batch item")
 
-        cls_losses = []
-        box_losses = []
-        dfl_losses = []
+        zero = decoded.boxes.sum() * 0.0
+        cls_numerator = zero
+        box_numerator = zero
+        dfl_numerator = zero
+        quality_sum = zero
         positive_count = 0
         for batch_index in range(batch_size):
             gt_boxes = targets[batch_index].get("boxes")
@@ -113,25 +115,36 @@ class DetectionLoss(nn.Module):
             )
             target_scores = assignment.target_scores
             cls_logits = self._classification_logits(raw_outputs, batch_index, levels)
-            cls_losses.append(F.binary_cross_entropy_with_logits(cls_logits, target_scores, reduction="mean"))
+            cls_numerator = cls_numerator + F.binary_cross_entropy_with_logits(
+                cls_logits,
+                target_scores,
+                reduction="sum",
+            )
+            quality_sum = quality_sum + target_scores.sum()
             if assignment.foreground.any():
                 positive = assignment.foreground
                 positive_count += int(positive.sum().item())
-                box_losses.append(ciou_loss(decoded.boxes[batch_index, positive], assignment.boxes[positive]).mean())
+                quality_weight = target_scores[positive].sum(dim=-1)
+                box_numerator = box_numerator + (
+                    ciou_loss(decoded.boxes[batch_index, positive], assignment.boxes[positive]) * quality_weight
+                ).sum()
                 distances = self._target_distances(decoded.points[positive], assignment.boxes[positive], decoded.strides[positive])
-                pred_distribution = self._positive_distribution(raw_outputs, decoded, batch_index, positive, levels)
-                dfl_losses.append(distribution_focal_loss(pred_distribution, distances, self.reg_max))
+                pred_distribution = self._positive_distribution(raw_outputs, batch_index, positive, levels)
+                dfl_numerator = dfl_numerator + (
+                    distribution_focal_loss(pred_distribution, distances, self.reg_max) * quality_weight
+                ).sum()
 
-        zero = decoded.boxes.sum() * 0.0
-        cls_loss = torch.stack(cls_losses).mean() if cls_losses else zero
-        box_loss = torch.stack(box_losses).mean() if box_losses else zero
-        dfl_loss = torch.stack(dfl_losses).mean() if dfl_losses else zero
+        denominator = quality_sum.clamp_min(1.0)
+        cls_loss = cls_numerator / denominator
+        box_loss = box_numerator / denominator
+        dfl_loss = dfl_numerator / denominator
         total = self.cls_weight * cls_loss + self.box_weight * box_loss + self.dfl_weight * dfl_loss
         return {
             "loss": total,
             "cls_loss": cls_loss,
             "box_loss": box_loss,
             "dfl_loss": dfl_loss,
+            "quality_sum": quality_sum.detach(),
             "positive_count": torch.tensor(float(positive_count), device=total.device),
         }
 
@@ -151,7 +164,6 @@ class DetectionLoss(nn.Module):
     @staticmethod
     def _positive_distribution(
         raw_outputs: Mapping[str, Mapping[str, torch.Tensor]],
-        decoded: DecodedPredictions,
         batch_index: int,
         positive_mask: torch.Tensor,
         levels: Sequence[str] | None,
@@ -161,7 +173,8 @@ class DetectionLoss(nn.Module):
         for level in selected_levels:
             logits = raw_outputs[level]["box_logits"][batch_index]
             channels, height, width = logits.shape
-            values = logits.reshape(4, -1, channels // 4).permute(1, 0, 2)
+            bins = channels // 4
+            values = logits.reshape(4, bins, height, width).permute(2, 3, 0, 1).reshape(-1, 4, bins)
             distribution_by_level.append(values)
         distribution = torch.cat(distribution_by_level, dim=0)
         return distribution[positive_mask]

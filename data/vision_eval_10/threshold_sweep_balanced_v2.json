@@ -1,0 +1,100 @@
+{
+  "0.001": {
+    "train": {
+      "map50": 0.500427831065086,
+      "precision": 0.01506276150627615,
+      "recall": 0.9473684210526315,
+      "false_positives_per_image": 147.125
+    },
+    "test": {
+      "map50": 0.4008169934640523,
+      "precision": 0.012376237623762377,
+      "recall": 1.0,
+      "false_positives_per_image": 199.5
+    }
+  },
+  "0.005": {
+    "train": {
+      "map50": 0.49920234086900755,
+      "precision": 0.035416666666666666,
+      "recall": 0.8947368421052632,
+      "false_positives_per_image": 57.875
+    },
+    "test": {
+      "map50": 0.3861111111111111,
+      "precision": 0.02,
+      "recall": 0.8,
+      "false_positives_per_image": 98.0
+    }
+  },
+  "0.01": {
+    "train": {
+      "map50": 0.49920234086900755,
+      "precision": 0.04941860465116279,
+      "recall": 0.8947368421052632,
+      "false_positives_per_image": 40.875
+    },
+    "test": {
+      "map50": 0.3861111111111111,
+      "precision": 0.026143790849673203,
+      "recall": 0.8,
+      "false_positives_per_image": 74.5
+    }
+  },
+  "0.02": {
+    "train": {
+      "map50": 0.48192239858906527,
+      "precision": 0.08,
+      "recall": 0.7368421052631579,
+      "false_positives_per_image": 20.125
+    },
+    "test": {
+      "map50": 0.3861111111111111,
+      "precision": 0.04819277108433735,
+      "recall": 0.8,
+      "false_positives_per_image": 39.5
+    }
+  },
+  "0.05": {
+    "train": {
+      "map50": 0.3101851851851852,
+      "precision": 0.5833333333333334,
+      "recall": 0.3684210526315789,
+      "false_positives_per_image": 0.625
+    },
+    "test": {
+      "map50": 0.1111111111111111,
+      "precision": 0.3333333333333333,
+      "recall": 0.4,
+      "false_positives_per_image": 2.0
+    }
+  },
+  "0.1": {
+    "train": {
+      "map50": 0.15277777777777776,
+      "precision": 0.8,
+      "recall": 0.21052631578947367,
+      "false_positives_per_image": 0.125
+    },
+    "test": {
+      "map50": 0.05555555555555555,
+      "precision": 0.25,
+      "recall": 0.2,
+      "false_positives_per_image": 1.5
+    }
+  },
+  "0.2": {
+    "train": {
+      "map50": 0.125,
+      "precision": 1.0,
+      "recall": 0.15789473684210525,
+      "false_positives_per_image": 0.0
+    },
+    "test": {
+      "map50": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "false_positives_per_image": 0.5
+    }
+  }
+}

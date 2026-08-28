@@ -6,6 +6,28 @@ from typing import Optional
 import torch
 
 
+def transform_square_boxes(
+    boxes: torch.Tensor,
+    *,
+    size: float,
+    quarter_turns: int = 0,
+    mirror_horizontal: bool = False,
+) -> torch.Tensor:
+    """Apply one D4 square-image transform to xyxy boxes."""
+    if boxes.ndim != 2 or boxes.shape[-1] != 4:
+        raise ValueError("boxes must have shape [N,4]")
+    if size <= 0:
+        raise ValueError("size must be positive")
+    transformed = boxes.clone()
+    for _ in range(int(quarter_turns) % 4):
+        if transformed.numel():
+            x1, y1, x2, y2 = transformed.unbind(dim=1)
+            transformed = torch.stack((y1, size - x2, y2, size - x1), dim=1)
+    if mirror_horizontal and transformed.numel():
+        transformed[:, [0, 2]] = size - transformed[:, [2, 0]]
+    return transformed
+
+
 class ConservativeAugment:
     """Geometry-safe augmentations for industrial few-shot samples."""
 
@@ -62,9 +84,7 @@ class ConservativeAugment:
                 result_image = torch.rot90(result_image, 1, dims=(-2, -1))
                 if result_mask is not None:
                     result_mask = torch.rot90(result_mask, 1, dims=(-2, -1))
-                if result_boxes.numel():
-                    x1, y1, x2, y2 = result_boxes.unbind(dim=1)
-                    result_boxes = torch.stack((y1, size - x2, y2, size - x1), dim=1)
+                result_boxes = transform_square_boxes(result_boxes, size=size, quarter_turns=1)
 
         if self.brightness or self.contrast:
             brightness_delta = (random.random() * 2.0 - 1.0) * self.brightness

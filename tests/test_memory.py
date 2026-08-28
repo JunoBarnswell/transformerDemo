@@ -16,29 +16,28 @@ class TestPush:
     def test_push_single_turn(self):
         mem = _make_mem()
         mem.push("你好", "你好啊")
-        assert len(mem.recent_turns) == 1
-        assert "你好" in list(mem.recent_turns)[0]
-        assert "你好啊" in list(mem.recent_turns)[0]
+        assert len(mem.recent_turns) == 2
+        assert list(mem.recent_turns)[0] == "你好"
+        assert list(mem.recent_turns)[1] == "你好啊"
 
     def test_push_respects_maxlen(self):
-        mem = _make_mem(recent_window=3, compact_threshold=10)
+        mem = _make_mem(recent_window=4, compact_threshold=10)
         for i in range(5):
             mem.push(f"问{i}", f"答{i}")
-        # deque maxlen=3, so only last 3 turns remain
-        assert len(mem.recent_turns) == 3
-        last = list(mem.recent_turns)[-1]
-        assert "问4" in last
+        # deque maxlen=4, so only last 4 utterances remain
+        assert len(mem.recent_turns) == 4
+        assert list(mem.recent_turns)[-1] == "答4"
 
 
 class TestShouldCompact:
     def test_not_triggered_below_threshold(self):
-        mem = _make_mem(compact_threshold=4)
+        mem = _make_mem(compact_threshold=6)
         mem.push("a", "b")
         mem.push("c", "d")
         assert not mem.should_compact()
 
     def test_triggered_at_threshold(self):
-        mem = _make_mem(compact_threshold=2)
+        mem = _make_mem(compact_threshold=4)
         mem.push("a", "b")
         mem.push("c", "d")
         assert mem.should_compact()
@@ -54,7 +53,7 @@ class TestBuildContextTurns:
         mem.push("你好", "你好")
         mem.push("再见", "再见")
         turns = mem.build_context_turns()
-        assert len(turns) == 2
+        assert len(turns) == 4
         assert not any("[历史摘要]" in t for t in turns)
 
     def test_permanent_summary_prepended(self):
@@ -64,7 +63,7 @@ class TestBuildContextTurns:
         turns = mem.build_context_turns()
         assert turns[0].startswith("[历史摘要]")
         assert "张三" in turns[0]
-        assert len(turns) == 2  # summary + 1 turn
+        assert len(turns) == 3  # summary + 2 utterances
 
     def test_summary_always_first(self):
         mem = _make_mem()

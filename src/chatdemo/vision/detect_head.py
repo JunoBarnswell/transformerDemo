@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
-from typing import Dict, Mapping, Sequence, Tuple
+from typing import Dict, Mapping, Sequence
 
 import torch
 import torch.nn as nn
@@ -37,17 +38,21 @@ class DetectionHead(nn.Module):
         levels: Sequence[str] = ("P2", "P3", "P4"),
         reg_max: int = 16,
         hidden_channels: int = 64,
+        input_size: int = 640,
     ):
         super().__init__()
         if num_classes <= 0:
             raise ValueError("num_classes must be positive")
-        if reg_max <= 0:
-            raise ValueError("reg_max must be positive")
+        if reg_max < 2:
+            raise ValueError("reg_max must define at least two DFL bins")
+        if input_size <= 0:
+            raise ValueError("input_size must be positive")
         if not levels or any(level not in STRIDES for level in levels):
             raise ValueError("levels must be drawn from P2/P3/P4/P5")
         self.num_classes = int(num_classes)
         self.levels = tuple(levels)
         self.reg_max = int(reg_max)
+        self.input_size = int(input_size)
         self.channel_by_level = _channels_for_levels(in_channels, self.levels)
 
         self.stems = nn.ModuleDict()
@@ -60,7 +65,17 @@ class DetectionHead(nn.Module):
             self.cls_towers[level] = nn.Sequential(ConvBNAct(hidden_channels, hidden_channels, 3), ConvBNAct(hidden_channels, hidden_channels, 3))
             self.reg_towers[level] = nn.Sequential(ConvBNAct(hidden_channels, hidden_channels, 3), ConvBNAct(hidden_channels, hidden_channels, 3))
             self.cls_preds[level] = nn.Conv2d(hidden_channels, self.num_classes, 1)
-            self.reg_preds[level] = nn.Conv2d(hidden_channels, 4 * (self.reg_max + 1), 1)
+            self.reg_preds[level] = nn.Conv2d(hidden_channels, 4 * self.reg_max, 1)
+        self._initialize_prediction_biases()
+
+    def _initialize_prediction_biases(self) -> None:
+        """Initialize sparse-class and DFL priors per detection stride."""
+        with torch.no_grad():
+            for level in self.levels:
+                stride = STRIDES[level]
+                self.reg_preds[level].bias.fill_(2.0)
+                class_prior = math.log(5.0 / self.num_classes / (self.input_size / stride) ** 2)
+                self.cls_preds[level].bias.fill_(class_prior)
 
     def forward(self, features: Mapping[str, torch.Tensor]) -> Dict[str, Dict[str, torch.Tensor]]:
         missing = [level for level in self.levels if level not in features]
@@ -114,15 +129,15 @@ def decode_raw_predictions(
         if box_logits.ndim != 4 or cls_logits.ndim != 4:
             raise ValueError("raw detection outputs must be BCHW tensors")
         batch, channels, height, width = box_logits.shape
-        expected_channels = 4 * (reg_max + 1)
+        expected_channels = 4 * reg_max
         if channels != expected_channels:
             raise ValueError(f"{level} box logits have {channels} channels, expected {expected_channels}")
         if cls_logits.shape[0] != batch or cls_logits.shape[-2:] != (height, width):
             raise ValueError("box and class logits have incompatible shapes")
         stride = STRIDES[level]
         if bins is None:
-            bins = torch.arange(reg_max + 1, device=box_logits.device, dtype=box_logits.dtype)
-        distribution = box_logits.reshape(batch, 4, reg_max + 1, height, width).softmax(dim=2)
+            bins = torch.arange(reg_max, device=box_logits.device, dtype=box_logits.dtype)
+        distribution = box_logits.reshape(batch, 4, reg_max, height, width).softmax(dim=2)
         distances = (distribution * bins.view(1, 1, -1, 1, 1)).sum(dim=2) * stride
         distances = distances.permute(0, 2, 3, 1).reshape(batch, -1, 4)
         points = _grid(height, width, stride, box_logits.device, box_logits.dtype)
@@ -234,7 +249,16 @@ class TaskAlignedAssigner:
             gt_indices = matched_gt[indices]
             labels[indices] = gt_labels[gt_indices]
             boxes[indices] = gt_boxes[gt_indices]
-            target_scores[indices, labels[indices]] = (
-                ious[indices, gt_indices].clamp(0.0, 1.0) * pred_scores[indices, labels[indices]].detach().clamp(0.0, 1.0)
-            ).clamp_min(1e-3)
+            for gt_index in gt_indices.unique(sorted=True):
+                gt_mask = gt_indices == gt_index
+                gt_anchor_indices = indices[gt_mask]
+                gt_alignment = alignment[gt_anchor_indices, gt_index].clamp_min(0.0)
+                gt_overlaps = ious[gt_anchor_indices, gt_index].clamp(0.0, 1.0)
+                max_alignment = gt_alignment.max()
+                max_overlap = gt_overlaps.max()
+                if max_alignment > 0:
+                    quality = gt_alignment * max_overlap / max_alignment.clamp_min(1e-9)
+                else:
+                    quality = gt_overlaps
+                target_scores[gt_anchor_indices, labels[gt_anchor_indices]] = quality.clamp(0.0, 1.0)
         return Assignment(foreground, labels, boxes, target_scores, matched_gt)

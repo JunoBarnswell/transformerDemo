@@ -1,0 +1,164 @@
+{
+  "class_names": [
+    "crazing",
+    "inclusion",
+    "patches",
+    "pitted_surface",
+    "rolled-in_scale",
+    "scratches"
+  ],
+  "class_to_id": {
+    "crazing": 0,
+    "inclusion": 1,
+    "patches": 2,
+    "pitted_surface": 3,
+    "rolled-in_scale": 4,
+    "scratches": 5
+  },
+  "samples": [
+    {
+      "image": "crazing_1",
+      "split": "train",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 1,
+      "classes": [
+        "crazing"
+      ],
+      "preview": "data/vision_eval_10/annotated/crazing_1_annotated.jpg"
+    },
+    {
+      "image": "crazing_2",
+      "split": "train",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 2,
+      "classes": [
+        "crazing",
+        "crazing"
+      ],
+      "preview": "data/vision_eval_10/annotated/crazing_2_annotated.jpg"
+    },
+    {
+      "image": "inclusion_1",
+      "split": "train",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 4,
+      "classes": [
+        "inclusion",
+        "inclusion",
+        "inclusion",
+        "inclusion"
+      ],
+      "preview": "data/vision_eval_10/annotated/inclusion_1_annotated.jpg"
+    },
+    {
+      "image": "inclusion_2",
+      "split": "test",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 3,
+      "classes": [
+        "inclusion",
+        "inclusion",
+        "inclusion"
+      ],
+      "preview": "data/vision_eval_10/annotated/inclusion_2_annotated.jpg"
+    },
+    {
+      "image": "patches_1",
+      "split": "train",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 3,
+      "classes": [
+        "patches",
+        "patches",
+        "patches"
+      ],
+      "preview": "data/vision_eval_10/annotated/patches_1_annotated.jpg"
+    },
+    {
+      "image": "patches_2",
+      "split": "train",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 3,
+      "classes": [
+        "patches",
+        "patches",
+        "patches"
+      ],
+      "preview": "data/vision_eval_10/annotated/patches_2_annotated.jpg"
+    },
+    {
+      "image": "pitted_surface_1",
+      "split": "train",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 2,
+      "classes": [
+        "pitted_surface",
+        "pitted_surface"
+      ],
+      "preview": "data/vision_eval_10/annotated/pitted_surface_1_annotated.jpg"
+    },
+    {
+      "image": "pitted_surface_2",
+      "split": "test",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 2,
+      "classes": [
+        "pitted_surface",
+        "pitted_surface"
+      ],
+      "preview": "data/vision_eval_10/annotated/pitted_surface_2_annotated.jpg"
+    },
+    {
+      "image": "rolled-in_scale_1",
+      "split": "train",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 2,
+      "classes": [
+        "rolled-in_scale",
+        "rolled-in_scale"
+      ],
+      "preview": "data/vision_eval_10/annotated/rolled-in_scale_1_annotated.jpg"
+    },
+    {
+      "image": "scratches_1",
+      "split": "train",
+      "size": [
+        200,
+        200
+      ],
+      "boxes": 2,
+      "classes": [
+        "scratches",
+        "scratches"
+      ],
+      "preview": "data/vision_eval_10/annotated/scratches_1_annotated.jpg"
+    }
+  ]
+}
