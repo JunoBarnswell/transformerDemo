@@ -1,0 +1,149 @@
+{
+  "checkpoint": "outputs/run_278k/best.pt",
+  "num_samples": 20,
+  "max_context_turns": 4,
+  "max_new_tokens": 24,
+  "bleu": 0.8787803714704632,
+  "samples": [
+    {
+      "sample_id": 0,
+      "prompt": "你好吗？",
+      "reference": "我很好，谢谢你！你今天过得怎么样？",
+      "prediction": "我很好，谢谢你！你今天过得怎么样？",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 1,
+      "prompt": "今天天气很好。",
+      "reference": "是呀，适合出门散步晒晒太阳。",
+      "prediction": "是呀，适合出门散步晒晒太阳。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 2,
+      "prompt": "你会学习吗？",
+      "reference": "我会学习，我是一个基于全自研 Transformer 架构的对话模型。",
+      "prediction": "我会学习，我是一个基于全自研 Transform",
+      "bleu": 0.6323366621862498
+    },
+    {
+      "sample_id": 3,
+      "prompt": "你是谁？",
+      "reference": "我是一个在 CPU 上运行的小型自研语言模型。",
+      "prediction": "我是一个在 CPU 上运行的小型自研语言模型。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 4,
+      "prompt": "我们明天见面吧。",
+      "reference": "好啊，记得提前告诉我具体的时间和地点。",
+      "prediction": "好啊，记得提前告诉我具体的时间和地点。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 5,
+      "prompt": "你推荐一部电影吗？",
+      "reference": "推荐你看看《星际穿越》或者《黑客帝国》，都非常精彩。",
+      "prediction": "推荐你看看《星际穿越》或者《黑客帝国》，都非常精",
+      "bleu": 0.9200444146293233
+    },
+    {
+      "sample_id": 6,
+      "prompt": "你会做饭吗？",
+      "reference": "我不会亲自做饭，但我可以为你提供各种美味的菜谱和烹饪步骤。",
+      "prediction": "我不会亲自做饭，但我可以为你提供各种美味的菜谱和",
+      "bleu": 0.811936346150635
+    },
+    {
+      "sample_id": 7,
+      "prompt": "今天心情有点糟。",
+      "reference": "别难过，抱抱你。如果有什么烦恼，随时跟我说说。",
+      "prediction": "别难过，抱抱你。如果有什么烦恼，随时跟我说说。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 8,
+      "prompt": "早上好！",
+      "reference": "早上好！祝你今天拥有元气满满的一天！",
+      "prediction": "早上好！祝你今天拥有元气满满的一天！",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 9,
+      "prompt": "晚上好！",
+      "reference": "晚上好，今天工作或者学习辛苦了，早点休息哦。",
+      "prediction": "晚上好，今天工作或者学习辛苦了，早点休息哦。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 10,
+      "prompt": "你叫什么名字？",
+      "reference": "我是全自研的 Transformer 聊天助手。",
+      "prediction": "我是全自研的 Transformer 聊天助手。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 11,
+      "prompt": "你能帮我做什么？",
+      "reference": "我可以陪你聊天、回答问题、讨论电影美食，还可以进行多轮对话。",
+      "prediction": "我可以陪你聊天、回答问题、讨论电影美食，还可以进",
+      "bleu": 0.7788007830714049
+    },
+    {
+      "sample_id": 12,
+      "prompt": "什么是 Transformer？",
+      "reference": "Transformer 是一种基于自注意力机制的深度学习架构，能够高效捕捉长距离上下文。",
+      "prediction": "Transformer 是一种基于自注意力机制的",
+      "bleu": 0.43459820850707825
+    },
+    {
+      "sample_id": 13,
+      "prompt": "什么是注意力机制？",
+      "reference": "注意力机制可以让模型在生成每个词时，动态关注输入中最相关的部分。",
+      "prediction": "注意力机制可以让模型在生成每个词时，动态关注输入",
+      "bleu": 0.7165313105737893
+    },
+    {
+      "sample_id": 14,
+      "prompt": "你喜欢听音乐吗？",
+      "reference": "虽然我不能直接听，但我知道很多好听的流行音乐和古典乐。",
+      "prediction": "虽然我不能直接听，但我知道很多好听的流行音乐和古",
+      "bleu": 0.8824969025845955
+    },
+    {
+      "sample_id": 15,
+      "prompt": "推荐一首好听的歌。",
+      "reference": "推荐听听周杰伦的《晴天》，旋律非常轻快优美。",
+      "prediction": "推荐听听周杰伦的《晴天》，旋律非常轻快优美。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 16,
+      "prompt": "今天下雨了。",
+      "reference": "出门记得带好雨伞，路上注意防滑和保暖。",
+      "prediction": "出门记得带好雨伞，路上注意防滑和保暖。",
+      "bleu": 1.0
+    },
+    {
+      "sample_id": 17,
+      "prompt": "我好累啊。",
+      "reference": "辛苦了，先喝口温水，靠在椅子上闭目养神休息十分钟吧。",
+      "prediction": "辛苦了，先喝口温水，靠在椅子上闭目养神休息十分钟",
+      "bleu": 0.9200444146293233
+    },
+    {
+      "sample_id": 18,
+      "prompt": "明天去哪里玩比较好？",
+      "reference": "天气好的话可以去公园散步，或者去附近的博物馆和书店逛逛。",
+      "prediction": "天气好的话可以去公园散步，或者去附近的博物馆和书",
+      "bleu": 0.846481724890614
+    },
+    {
+      "sample_id": 19,
+      "prompt": "你支持 GPU 还是 CPU？",
+      "reference": "我都支持，但我的架构特别针对 CPU 做了轻量化设计，推理速度非常快。",
+      "prediction": "我都支持，但我的架构特别针对 CPU 做了轻量化",
+      "bleu": 0.6323366621862498
+    }
+  ]
+}

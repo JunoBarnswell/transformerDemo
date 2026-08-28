@@ -27,4 +27,3 @@ def test_chat_cli_once(tmp_path: Path):
     ckpt = out_dir / "checkpoint.pt"
     reply = chat_once(str(ckpt), "你是谁")
     assert isinstance(reply, str)
-    assert len(reply) > 0

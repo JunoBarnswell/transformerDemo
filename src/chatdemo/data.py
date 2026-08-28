@@ -201,6 +201,32 @@ def extract_corpus_for_vocab(pairs: Sequence[ChatPair]) -> List[str]:
     return texts
 
 
+def encode_chat_pair(pair: ChatPair, tokenizer: CharTokenizer) -> List[int]:
+    """Encode a multi-turn chat pair into token IDs with explicit special tokens."""
+    tokens = [tokenizer.bos_id]
+    for turn in pair.context_turns:
+        tokens.extend(tokenizer.encode(turn, add_special_tokens=False))
+        tokens.append(tokenizer.sep_id)
+    if pair.context:
+        tokens.extend(tokenizer.encode(pair.context, add_special_tokens=False))
+        tokens.append(tokenizer.sep_id)
+    tokens.extend(tokenizer.encode(pair.reply, add_special_tokens=False))
+    tokens.append(tokenizer.eos_id)
+    return tokens
+
+
+def encode_chat_prompt(prompt: str, tokenizer: CharTokenizer, context_turns: Sequence[str] = ()) -> List[int]:
+    """Encode a prompt (plus optional history turns) up to the separator token."""
+    tokens = [tokenizer.bos_id]
+    for turn in context_turns:
+        tokens.extend(tokenizer.encode(turn, add_special_tokens=False))
+        tokens.append(tokenizer.sep_id)
+    if prompt:
+        tokens.extend(tokenizer.encode(prompt, add_special_tokens=False))
+        tokens.append(tokenizer.sep_id)
+    return tokens
+
+
 class ChatDataset(Dataset):
     def __init__(
         self,
@@ -210,12 +236,10 @@ class ChatDataset(Dataset):
     ) -> None:
         self.tokenizer = tokenizer
         self.max_length = max_length
-        self.sep_token = tokenizer.id_to_token[tokenizer.sep_id]
 
         samples: List[Tuple[torch.Tensor, torch.Tensor]] = []
         for pair in pairs:
-            text = _pair_text(pair, self.sep_token)
-            tokens = tokenizer.encode(text, add_special_tokens=True)
+            tokens = encode_chat_pair(pair, tokenizer)
             if len(tokens) <= 1:
                 continue
 

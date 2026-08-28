@@ -95,6 +95,16 @@ PYTHONPATH=src python -m chatdemo.evaluate \
 - `outputs/eval/metrics.json`：BLEU 汇总
 - `outputs/eval/human_scoring_template.csv`：人工评分填表模板（字段：`prompt, reference, prediction, human_score, comment`）
 
+### 5) 可视化 loss 曲线（实验记录）
+
+```bash
+PYTHONPATH=src python -m chatdemo.plot_loss \
+  --loss-curve outputs/run/loss_curve.json \
+  --output-csv outputs/run/loss_curve.csv
+```
+
+如环境已安装 `matplotlib`，可附加 `--plot --output-plot outputs/run/loss_curve.png` 额外导出曲线图。
+
 ## 数据格式
 
 本 demo 主要读取 JSONL，每行支持以下字段之一：

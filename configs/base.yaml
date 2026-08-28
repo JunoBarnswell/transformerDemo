@@ -4,34 +4,35 @@ data:
   data_file: data/sample_conversations.jsonl
   vocab_path: data/vocab.json
   vocab_size: 2000
-  seq_len: 64
+  seq_len: 128
   max_context_turns: 4
 
 train:
-  output_dir: outputs/run
+  output_dir: outputs/run_278k
   batch_size: 4
   num_workers: 0
-  max_steps: 20
-  max_epochs: 1
-  learning_rate: 0.0005
+  max_steps: 800
+  max_epochs: 80
+  learning_rate: 0.001
   grad_clip: 1.0
-  eval_interval: 5
-  save_interval: 5
-  log_interval: 1
+  eval_interval: 20
+  save_interval: 50
+  log_interval: 20
+  early_stop_patience: 10
   train_log_file: train_log.jsonl
   loss_curve_file: loss_curve.json
   inference_log_file: inference_log.jsonl
   num_infer_prompts: 3
 
 model:
-  d_model: 64
-  nhead: 2
+  d_model: 128
+  nhead: 4
   n_layers: 2
-  ff_dim: 128
+  ff_dim: 192
   dropout: 0.1
 
 generation:
-  max_new_tokens: 24
-  temperature: 1.0
-  top_k: 0
-  top_p: 1.0
+  max_new_tokens: 36
+  temperature: 0.4
+  top_k: 5
+  top_p: 0.9

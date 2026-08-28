@@ -1,0 +1,65 @@
+{
+  "checkpoint": "outputs/user_model/checkpoint.pt",
+  "num_samples": 8,
+  "max_context_turns": 4,
+  "max_new_tokens": 24,
+  "bleu": 0.0,
+  "samples": [
+    {
+      "sample_id": 0,
+      "prompt": "你好吗？",
+      "reference": "我很好，谢谢你！你今天过得怎么样？",
+      "prediction": "以做最气UC你我s在儿明跑我，提谢学！抱合",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 1,
+      "prompt": "今天天气很好。",
+      "reference": "是呀，适合出门散步。",
+      "prediction": "吗息经典真气在谱。影，气么呀天 面地习前黑好P",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 2,
+      "prompt": "你会学习吗？",
+      "reference": "我会学习，最近刚在做 Transformer 聊天 demo。",
+      "prediction": "们吗d记很呀点会提天帝适心诉天T帝",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 3,
+      "prompt": "你是谁？",
+      "reference": "我是一个 CPU 上能跑的小型聊天模型。",
+      "prediction": "么但饭的o门合上是做做今陪帝我能上《影可吧影真帝",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 4,
+      "prompt": "我们明天见面吧。",
+      "reference": "可以，记得提前告诉我时间地点。",
+      "prediction": "真谱些到推谢？部呀》。小气典吧但呀很我，一告s",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 5,
+      "prompt": "你推荐一部电影吗？",
+      "reference": "《黑客帝国》是一部不错的经典。",
+      "prediction": "d谢T样天能可听《天呀诉吗散天到合 告部们步诉气",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 6,
+      "prompt": "你会做饭吗？",
+      "reference": "我不会真的做饭，但可以告诉你一些菜谱。",
+      "prediction": "om不上前帝见》谢呀！帝se诉型聊sesn？刚",
+      "bleu": 0.0
+    },
+    {
+      "sample_id": 7,
+      "prompt": "今天心情有点糟。",
+      "reference": "很抱歉听到这个消息，我在这陪你聊一会儿。",
+      "prediction": "Un能s你跑见天得明天d谱怎",
+      "bleu": 0.0
+    }
+  ]
+}

@@ -53,6 +53,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eval-interval", type=int, dest="eval_interval")
     parser.add_argument("--save-interval", type=int, dest="save_interval")
     parser.add_argument("--log-interval", type=int, dest="log_interval")
+    parser.add_argument("--early-stop-patience", type=int, dest="early_stop_patience")
     parser.add_argument("--max-context-turns", type=int, dest="max_context_turns")
     parser.add_argument("--train-log-file", dest="train_log_file")
     parser.add_argument("--loss-curve-file", dest="loss_curve_file")
@@ -167,23 +168,24 @@ def _merge_config(base: Dict[str, Any], args: argparse.Namespace) -> Dict[str, A
             "inference_prompts": merged.get("data", {}).get("inference_prompts"),
             "inference_prompts_file": merged.get("data", {}).get("inference_prompts_file") or args.inference_prompts_file,
         },
-        "train": {
-            "batch_size": args.batch_size,
-            "max_steps": args.max_steps,
-            "max_epochs": args.max_epochs,
-            "learning_rate": args.learning_rate,
-            "grad_clip": args.grad_clip,
-            "eval_interval": args.eval_interval,
-            "save_interval": args.save_interval,
-            "log_interval": args.log_interval,
-            "output_dir": args.output_dir,
-            "num_workers": args.num_workers,
-            "train_log_file": args.train_log_file,
-            "loss_curve_file": args.loss_curve_file,
-            "inference_log_file": args.inference_log_file,
-            "inference_prompts_file": args.inference_prompts_file,
-            "num_infer_prompts": args.num_infer_prompts,
-        },
+            "train": {
+                "batch_size": args.batch_size,
+                "max_steps": args.max_steps,
+                "max_epochs": args.max_epochs,
+                "learning_rate": args.learning_rate,
+                "grad_clip": args.grad_clip,
+                "eval_interval": args.eval_interval,
+                "save_interval": args.save_interval,
+                "log_interval": args.log_interval,
+                "early_stop_patience": args.early_stop_patience,
+                "output_dir": args.output_dir,
+                "num_workers": args.num_workers,
+                "train_log_file": args.train_log_file,
+                "loss_curve_file": args.loss_curve_file,
+                "inference_log_file": args.inference_log_file,
+                "inference_prompts_file": args.inference_prompts_file,
+                "num_infer_prompts": args.num_infer_prompts,
+            },
         "model": {
             "d_model": args.d_model,
             "nhead": args.nhead,
@@ -304,6 +306,9 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
     eval_interval = int(train_cfg["eval_interval"])
     save_interval = int(train_cfg["save_interval"])
     grad_clip = float(train_cfg["grad_clip"])
+    early_stop_patience = int(train_cfg.get("early_stop_patience", 10) or 10)
+    if early_stop_patience < 1:
+        early_stop_patience = 10
 
     output_dir = Path(train_cfg["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -319,6 +324,8 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
     step = 0
     best_loss = float("inf")
     final_ckpt = output_dir / "checkpoint.pt"
+    no_improve_steps = 0
+    should_stop = False
 
     for epoch in range(int(train_cfg["max_epochs"])):
         model.train()
@@ -348,9 +355,29 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
                 _append_jsonl(log_paths["train"], {"step": step, "split": "val", "loss": float(val_loss)})
                 print(f"eval step={step} val_loss={val_loss:.4f}")
 
+                improved = False
                 if val_loss < best_loss:
                     best_loss = val_loss
+                    no_improve_steps = 0
+                    improved = True
                     save_checkpoint(model, tokenizer, cfg, step, output_dir / "best.pt")
+
+                if not improved:
+                    no_improve_steps += 1
+
+                if no_improve_steps >= early_stop_patience:
+                    _append_jsonl(
+                        log_paths["train"],
+                        {
+                            "step": step,
+                            "split": "early_stop",
+                            "patience": early_stop_patience,
+                            "no_improve_steps": no_improve_steps,
+                            "best_loss": best_loss if best_loss < float("inf") else None,
+                        },
+                    )
+                    should_stop = True
+                    break
 
                 for prompt in inference_prompts:
                     gen = generate_text(
@@ -376,8 +403,10 @@ def train(cfg: Dict[str, Any]) -> Dict[str, Any]:
 
             if step >= max_steps:
                 break
+            if should_stop:
+                break
 
-        if step >= max_steps:
+        if step >= max_steps or should_stop:
             break
 
     save_checkpoint(model, tokenizer, cfg, step, final_ckpt)
