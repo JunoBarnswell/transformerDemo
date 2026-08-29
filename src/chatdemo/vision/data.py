@@ -197,18 +197,3 @@ def filter_labeled_targets(targets: Sequence[Mapping[str, Any]], task: str) -> t
     key = "detection_labeled" if task == "detection" else "segmentation_labeled"
     selected = [(index, target) for index, target in enumerate(targets) if bool(target.get(key, False))]
     return [index for index, _ in selected], [target for _, target in selected]
-
-
-def estimate_max_object_area_fraction(samples: Sequence[VisionSample]) -> float | None:
-    """Estimate the largest annotated box fraction for ``use_p5: auto``."""
-    maximum = 0.0
-    found = False
-    for sample in samples:
-        if not sample.has_detection_labels:
-            continue
-        image = load_image(sample.image_path)
-        for box in sample.boxes:
-            x1, y1, x2, y2 = (float(value) for value in box)
-            maximum = max(maximum, ((x2 - x1) * (y2 - y1)) / float(image.width * image.height))
-            found = True
-    return maximum if found else None

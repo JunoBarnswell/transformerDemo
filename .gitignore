@@ -58,3 +58,7 @@ Thumbs.db
 # Industrial vision data and model artifacts are supplied out of band.
 weights/
 outputs/vision/
+data/neu_det/
+outputs/vision-yolov8n/
+outputs/vision-yolov8n-p2/
+outputs/fewshot/

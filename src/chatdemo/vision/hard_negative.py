@@ -35,12 +35,10 @@ def mine_hard_negative_indices(
         detections = decode_detections(
             outputs["detection"],
             [target["transform"]],
-            reg_max=model.config.reg_max,
             confidence_threshold=threshold,
             nms_threshold=model.config.nms_threshold,
             max_detections=model.config.max_detections,
             class_names=model.config.class_names,
-            levels=model.config.detect_levels,
         )[0]
         if detections:
             indices.append(index)

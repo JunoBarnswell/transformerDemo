@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-dev.txt
 
       - name: Run tokenizer/data/model smoke tests
         run: |
@@ -36,4 +36,4 @@ jobs:
 
       - name: Run vision contract and shape tests
         run: |
-          PYTHONPATH=src python -m pytest tests/test_vision_*.py
+          PYTHONPATH=src python -m pytest tests/test_vision_*.py tests/test_detection_parity.py
