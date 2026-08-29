@@ -12,7 +12,7 @@ from .vision.preprocess import load_image
 def detect_image(image_path: str | Path, checkpoint: str | Path) -> list[dict]:
     image = load_image(image_path)
     model, config, _ = load_vision_checkpoint(checkpoint)
-    detections, _, _ = _predict_one(model, config, image)
+    detections, _ = _predict_one(model, config, image)
     return [item.to_dict() for item in detections]
 
 

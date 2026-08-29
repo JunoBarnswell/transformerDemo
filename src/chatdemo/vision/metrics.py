@@ -21,8 +21,12 @@ def _average_precision(scores: list[float], true_positives: list[int], false_pos
     precision_points = torch.cat((torch.ones(1, dtype=precision.dtype), precision, torch.zeros(1, dtype=precision.dtype)))
     for index in range(precision_points.numel() - 2, -1, -1):
         precision_points[index] = torch.maximum(precision_points[index], precision_points[index + 1])
-    change = torch.where(recall_points[1:] != recall_points[:-1])[0]
-    return float(((recall_points[change + 1] - recall_points[change]) * precision_points[change + 1]).sum().item())
+    grid = torch.linspace(0, 1, 101, dtype=recall.dtype)
+    interpolated = torch.zeros_like(grid)
+    for index, value in enumerate(grid):
+        eligible = torch.where(recall_points >= value)[0]
+        interpolated[index] = precision_points[eligible[0]] if eligible.numel() else precision_points[-1]
+    return float(torch.trapezoid(interpolated, grid).item())
 
 
 def detection_ap(
@@ -87,6 +91,7 @@ def detection_ap(
         "recall": all_tp / max(total_gt, 1),
         "false_positives_per_image": all_fp / max(len(predictions), 1),
         "per_class_ap": {str(key): value for key, value in per_class.items()},
+        "evaluated_classes": [int(key) for key in per_class],
     }
 
 
@@ -98,6 +103,23 @@ def evaluate_detection(
 ) -> dict[str, Any]:
     thresholds = [0.5 + 0.05 * index for index in range(10)]
     by_threshold = {threshold: detection_ap(predictions, targets, iou_threshold=threshold, num_classes=num_classes) for threshold in thresholds}
+    small_gt = 0
+    small_tp = 0
+    for image_predictions, target in zip(predictions, targets):
+        target_boxes = target.get("boxes", torch.zeros((0, 4))).detach().cpu().float().reshape(-1, 4)
+        target_labels = target.get("labels", torch.zeros((0,), dtype=torch.long)).detach().cpu().long().reshape(-1)
+        small = ((target_boxes[:, 2] - target_boxes[:, 0]) * (target_boxes[:, 3] - target_boxes[:, 1])) / (640.0 * 640.0) <= 0.01
+        small_gt += int(small.sum())
+        used: set[int] = set()
+        for prediction in sorted(image_predictions, key=lambda item: item.score, reverse=True):
+            for index in torch.where(small & (target_labels == prediction.class_id))[0].tolist():
+                if index in used:
+                    continue
+                overlap = box_iou(torch.tensor([prediction.box_xyxy]), target_boxes[index:index + 1])[0, 0]
+                if overlap >= 0.5:
+                    used.add(index)
+                    small_tp += 1
+                    break
     result = {
         "map50": by_threshold[0.5]["ap"],
         "map75": by_threshold[0.75]["ap"],
@@ -106,8 +128,35 @@ def evaluate_detection(
         "recall": by_threshold[0.5]["recall"],
         "false_positives_per_image": by_threshold[0.5]["false_positives_per_image"],
         "per_class_ap50": by_threshold[0.5]["per_class_ap"],
+        "evaluated_classes": by_threshold[0.5]["evaluated_classes"],
+        "small_recall": small_tp / max(small_gt, 1),
+        "small_ground_truth": small_gt,
     }
     return result
+
+
+def calibrate_detection_threshold(
+    predictions: Sequence[Sequence[Detection]],
+    targets: Sequence[Mapping[str, Any]],
+    *,
+    num_classes: int,
+    target_recall: float = 0.95,
+) -> dict[str, float | None]:
+    if not 0.0 < target_recall <= 1.0:
+        raise ValueError("target_recall must be in (0,1]")
+    candidates = sorted({0.001, *[round(float(item.score), 6) for row in predictions for item in row]}, reverse=True)
+    best_f1 = (-1.0, None)
+    best_target = None
+    for threshold in candidates:
+        filtered = [[item for item in row if item.score >= threshold] for row in predictions]
+        measured = detection_ap(filtered, targets, iou_threshold=0.5, num_classes=num_classes)
+        precision, recall = float(measured["precision"]), float(measured["recall"])
+        f1 = 2 * precision * recall / max(precision + recall, 1e-12)
+        if f1 > best_f1[0]:
+            best_f1 = (f1, threshold)
+        if recall >= target_recall:
+            best_target = threshold
+    return {"best_f1_threshold": best_f1[1], "target_recall_threshold": best_target}
 
 
 def evaluate_segmentation(

@@ -1,79 +1,68 @@
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
-from typing import Dict, Mapping, Sequence, Tuple
+from typing import Mapping, Sequence
 
 import torch
 import torch.nn as nn
 
-from .backbone import ConvBNAct
-from .coordinates import box_iou
+from .backbone import Conv
 
 
-STRIDES: Dict[str, int] = {"P2": 4, "P3": 8, "P4": 16, "P5": 32}
+STRIDES = (4, 8, 16, 32)
 
 
-def _channels_for_levels(in_channels: int | Mapping[str, int] | Sequence[int], levels: Sequence[str]) -> Dict[str, int]:
-    if isinstance(in_channels, int):
-        return {level: in_channels for level in levels}
-    if isinstance(in_channels, Mapping):
-        missing = [level for level in levels if level not in in_channels]
-        if missing:
-            raise ValueError(f"detection head channels missing levels: {missing}")
-        return {level: int(in_channels[level]) for level in levels}
-    values = list(in_channels)
-    if len(values) != len(levels):
-        raise ValueError("sequence in_channels must have one value per detection level")
-    return {level: int(value) for level, value in zip(levels, values)}
+class DFL(nn.Module):
+    def __init__(self, reg_max: int = 16):
+        super().__init__()
+        self.conv = nn.Conv2d(reg_max, 1, 1, bias=False)
+        self.conv.weight.data[:] = torch.arange(reg_max, dtype=torch.float32).view(1, reg_max, 1, 1)
+        self.conv.weight.requires_grad_(False)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        batch, _, anchors = x.shape
+        return self.conv(x.view(batch, 4, self.conv.in_channels, anchors).transpose(2, 1).softmax(1)).view(batch, 4, anchors)
 
 
 class DetectionHead(nn.Module):
-    """Anchor-free decoupled detection head with DFL distributions."""
+    """Native YOLOv8 v8.4.0 Detect head for P3/P4/P5 features."""
 
-    def __init__(
-        self,
-        in_channels: int | Mapping[str, int] | Sequence[int],
-        num_classes: int,
-        levels: Sequence[str] = ("P2", "P3", "P4"),
-        reg_max: int = 16,
-        hidden_channels: int = 64,
-    ):
+    reg_max = 16
+
+    def __init__(self, in_channels: Sequence[int], num_classes: int, input_size: int = 640):
         super().__init__()
-        if num_classes <= 0:
-            raise ValueError("num_classes must be positive")
-        if reg_max <= 0:
-            raise ValueError("reg_max must be positive")
-        if not levels or any(level not in STRIDES for level in levels):
-            raise ValueError("levels must be drawn from P2/P3/P4/P5")
-        self.num_classes = int(num_classes)
-        self.levels = tuple(levels)
-        self.reg_max = int(reg_max)
-        self.channel_by_level = _channels_for_levels(in_channels, self.levels)
+        if len(in_channels) not in (3, 4) or num_classes <= 0 or input_size <= 0:
+            raise ValueError("DetectionHead requires three or four feature levels, positive class count and input size")
+        self.nc = int(num_classes)
+        self.no = self.nc + self.reg_max * 4
+        c2 = max(16, int(in_channels[0]) // 4, self.reg_max * 4)
+        c3 = max(int(in_channels[0]), min(self.nc, 100))
+        self.cv2 = nn.ModuleList(
+            nn.Sequential(Conv(c, c2, 3), Conv(c2, c2, 3), nn.Conv2d(c2, 4 * self.reg_max, 1))
+            for c in in_channels
+        )
+        self.cv3 = nn.ModuleList(
+            nn.Sequential(Conv(c, c3, 3), Conv(c3, c3, 3), nn.Conv2d(c3, self.nc, 1))
+            for c in in_channels
+        )
+        self.dfl = DFL(self.reg_max)
+        self.strides = tuple(float(value) for value in STRIDES[-len(in_channels):])
+        self.input_size = int(input_size)
+        self.bias_init()
 
-        self.stems = nn.ModuleDict()
-        self.cls_towers = nn.ModuleDict()
-        self.reg_towers = nn.ModuleDict()
-        self.cls_preds = nn.ModuleDict()
-        self.reg_preds = nn.ModuleDict()
-        for level in self.levels:
-            self.stems[level] = ConvBNAct(self.channel_by_level[level], hidden_channels, 3)
-            self.cls_towers[level] = nn.Sequential(ConvBNAct(hidden_channels, hidden_channels, 3), ConvBNAct(hidden_channels, hidden_channels, 3))
-            self.reg_towers[level] = nn.Sequential(ConvBNAct(hidden_channels, hidden_channels, 3), ConvBNAct(hidden_channels, hidden_channels, 3))
-            self.cls_preds[level] = nn.Conv2d(hidden_channels, self.num_classes, 1)
-            self.reg_preds[level] = nn.Conv2d(hidden_channels, 4 * (self.reg_max + 1), 1)
+    def bias_init(self) -> None:
+        with torch.no_grad():
+            for box_head, cls_head, stride in zip(self.cv2, self.cv3, self.strides):
+                box_head[-1].bias.fill_(2.0)
+                cls_head[-1].bias.fill_(math.log(5.0 / self.nc / (self.input_size / stride) ** 2))
 
-    def forward(self, features: Mapping[str, torch.Tensor]) -> Dict[str, Dict[str, torch.Tensor]]:
-        missing = [level for level in self.levels if level not in features]
-        if missing:
-            raise ValueError(f"features missing detection levels: {missing}")
-        outputs: Dict[str, Dict[str, torch.Tensor]] = {}
-        for level in self.levels:
-            shared = self.stems[level](features[level])
-            outputs[level] = {
-                "box_logits": self.reg_preds[level](self.reg_towers[level](shared)),
-                "cls_logits": self.cls_preds[level](self.cls_towers[level](shared)),
-            }
-        return outputs
+    def forward(self, features: Sequence[torch.Tensor]) -> dict[str, torch.Tensor | tuple[torch.Tensor, ...]]:
+        if len(features) != len(self.cv2):
+            raise ValueError("DetectionHead feature count does not match configured architecture")
+        boxes = torch.cat([head(x).flatten(2) for head, x in zip(self.cv2, features)], dim=2)
+        scores = torch.cat([head(x).flatten(2) for head, x in zip(self.cv3, features)], dim=2)
+        return {"boxes": boxes, "scores": scores, "feats": tuple(features)}
 
 
 @dataclass(frozen=True)
@@ -84,157 +73,129 @@ class DecodedPredictions:
     strides: torch.Tensor
 
 
-def _grid(height: int, width: int, stride: int, device: torch.device, dtype: torch.dtype) -> torch.Tensor:
-    y, x = torch.meshgrid(
-        torch.arange(height, device=device, dtype=dtype),
-        torch.arange(width, device=device, dtype=dtype),
-        indexing="ij",
-    )
-    return torch.stack(((x + 0.5) * stride, (y + 0.5) * stride), dim=-1).reshape(-1, 2)
+def make_anchors(features: Sequence[torch.Tensor], strides: Sequence[float] | None = None) -> tuple[torch.Tensor, torch.Tensor]:
+    strides = tuple(strides or STRIDES[-len(features):])
+    points, stride_values = [], []
+    dtype, device = features[0].dtype, features[0].device
+    for feature, stride in zip(features, strides):
+        _, _, height, width = feature.shape
+        sx = torch.arange(width, device=device, dtype=dtype) + 0.5
+        sy = torch.arange(height, device=device, dtype=dtype) + 0.5
+        sy, sx = torch.meshgrid(sy, sx, indexing="ij")
+        points.append(torch.stack((sx, sy), dim=-1).reshape(-1, 2))
+        stride_values.append(torch.full((height * width, 1), float(stride), device=device, dtype=dtype))
+    return torch.cat(points), torch.cat(stride_values)
 
 
-def decode_raw_predictions(
-    raw_outputs: Mapping[str, Mapping[str, torch.Tensor]],
-    *,
-    reg_max: int,
-    levels: Sequence[str] | None = None,
-) -> DecodedPredictions:
-    """Decode DFL logits into model-input xyxy boxes and class scores."""
-    selected_levels = tuple(levels or raw_outputs.keys())
-    boxes_by_level = []
-    scores_by_level = []
-    points_by_level = []
-    strides_by_level = []
-    bins = None
-    for level in selected_levels:
-        if level not in raw_outputs:
-            raise ValueError(f"raw outputs missing level: {level}")
-        box_logits = raw_outputs[level]["box_logits"]
-        cls_logits = raw_outputs[level]["cls_logits"]
-        if box_logits.ndim != 4 or cls_logits.ndim != 4:
-            raise ValueError("raw detection outputs must be BCHW tensors")
-        batch, channels, height, width = box_logits.shape
-        expected_channels = 4 * (reg_max + 1)
-        if channels != expected_channels:
-            raise ValueError(f"{level} box logits have {channels} channels, expected {expected_channels}")
-        if cls_logits.shape[0] != batch or cls_logits.shape[-2:] != (height, width):
-            raise ValueError("box and class logits have incompatible shapes")
-        stride = STRIDES[level]
-        if bins is None:
-            bins = torch.arange(reg_max + 1, device=box_logits.device, dtype=box_logits.dtype)
-        distribution = box_logits.reshape(batch, 4, reg_max + 1, height, width).softmax(dim=2)
-        distances = (distribution * bins.view(1, 1, -1, 1, 1)).sum(dim=2) * stride
-        distances = distances.permute(0, 2, 3, 1).reshape(batch, -1, 4)
-        points = _grid(height, width, stride, box_logits.device, box_logits.dtype)
-        center_x = points[:, 0].view(1, -1)
-        center_y = points[:, 1].view(1, -1)
-        boxes = torch.stack(
-            (
-                center_x - distances[..., 0],
-                center_y - distances[..., 1],
-                center_x + distances[..., 2],
-                center_y + distances[..., 3],
-            ),
-            dim=-1,
-        )
-        scores = cls_logits.sigmoid().permute(0, 2, 3, 1).reshape(batch, -1, cls_logits.shape[1])
-        boxes_by_level.append(boxes)
-        scores_by_level.append(scores)
-        points_by_level.append(points)
-        strides_by_level.append(torch.full((points.shape[0],), float(stride), device=points.device, dtype=points.dtype))
+def decode_raw_predictions(raw_outputs: Mapping[str, torch.Tensor | tuple[torch.Tensor, ...]], *, reg_max: int = 16) -> DecodedPredictions:
+    boxes = raw_outputs.get("boxes")
+    scores = raw_outputs.get("scores")
+    feats = raw_outputs.get("feats")
+    if not isinstance(boxes, torch.Tensor) or not isinstance(scores, torch.Tensor) or not isinstance(feats, tuple):
+        raise ValueError("raw outputs must contain boxes, scores and feats from DetectionHead")
+    if boxes.ndim != 3 or scores.ndim != 3 or boxes.shape[0] != scores.shape[0]:
+        raise ValueError("raw detection tensors must be [B,C,A]")
+    if boxes.shape[1] != 4 * reg_max:
+        raise ValueError(f"box logits have {boxes.shape[1]} channels, expected {4 * reg_max}")
+    points, stride_tensor = make_anchors(feats)
+    distribution = boxes.permute(0, 2, 1).reshape(boxes.shape[0], -1, 4, reg_max).softmax(dim=-1)
+    projection = torch.arange(reg_max, device=boxes.device, dtype=boxes.dtype)
+    distances = distribution.matmul(projection) * stride_tensor.view(1, -1, 1)
+    anchors = points * stride_tensor
+    lt, rb = distances[..., :2], distances[..., 2:]
+    decoded_boxes = torch.cat((anchors[None] - lt, anchors[None] + rb), dim=-1)
+    return DecodedPredictions(decoded_boxes, scores.permute(0, 2, 1).sigmoid(), anchors, stride_tensor.squeeze(-1))
 
-    if not boxes_by_level:
-        raise ValueError("at least one detection level is required")
-    return DecodedPredictions(
-        boxes=torch.cat(boxes_by_level, dim=1),
-        scores=torch.cat(scores_by_level, dim=1),
-        points=torch.cat(points_by_level, dim=0),
-        strides=torch.cat(strides_by_level, dim=0),
-    )
+
+def bbox_ciou(boxes1: torch.Tensor, boxes2: torch.Tensor, eps: float = 1e-7) -> torch.Tensor:
+    if boxes1.shape != boxes2.shape or boxes1.shape[-1] != 4:
+        raise ValueError("boxes must have equal [...,4] shapes")
+    w1 = boxes1[..., 2] - boxes1[..., 0]
+    h1 = boxes1[..., 3] - boxes1[..., 1] + eps
+    w2 = boxes2[..., 2] - boxes2[..., 0]
+    h2 = boxes2[..., 3] - boxes2[..., 1] + eps
+    inter = (torch.minimum(boxes1[..., 2], boxes2[..., 2]) - torch.maximum(boxes1[..., 0], boxes2[..., 0])).clamp_min(0) * (torch.minimum(boxes1[..., 3], boxes2[..., 3]) - torch.maximum(boxes1[..., 1], boxes2[..., 1])).clamp_min(0)
+    union = w1 * h1 + w2 * h2 - inter + eps
+    iou = inter / union
+    cw = torch.maximum(boxes1[..., 2], boxes2[..., 2]) - torch.minimum(boxes1[..., 0], boxes2[..., 0])
+    ch = torch.maximum(boxes1[..., 3], boxes2[..., 3]) - torch.minimum(boxes1[..., 1], boxes2[..., 1])
+    c2 = cw.square() + ch.square() + eps
+    rho2 = ((boxes2[..., 0] + boxes2[..., 2] - boxes1[..., 0] - boxes1[..., 2]).square() + (boxes2[..., 1] + boxes2[..., 3] - boxes1[..., 1] - boxes1[..., 3]).square()) / 4
+    v = (4 / math.pi**2) * ((w2 / h2).atan() - (w1 / h1).atan()).square()
+    with torch.no_grad():
+        alpha = v / (v - iou + (1 + eps))
+    return iou - (rho2 / c2 + v * alpha)
 
 
 @dataclass(frozen=True)
 class Assignment:
-    foreground: torch.Tensor
     labels: torch.Tensor
     boxes: torch.Tensor
     target_scores: torch.Tensor
+    foreground: torch.Tensor
     matched_gt: torch.Tensor
 
 
 class TaskAlignedAssigner:
-    """Small, explicit Task-Aligned Assigner for anchor-free predictions."""
+    """YOLOv8 v8.4.0 TAL with explicit batched tensors and no hidden fallback."""
 
-    def __init__(self, top_k: int = 10, alpha: float = 0.5, beta: float = 6.0):
-        if top_k <= 0:
-            raise ValueError("top_k must be positive")
-        self.top_k = int(top_k)
-        self.alpha = float(alpha)
-        self.beta = float(beta)
+    def __init__(self, top_k: int = 10, alpha: float = 0.5, beta: float = 6.0, eps: float = 1e-9):
+        self.top_k, self.alpha, self.beta, self.eps = int(top_k), float(alpha), float(beta), float(eps)
 
-    def __call__(
-        self,
-        points: torch.Tensor,
-        pred_boxes: torch.Tensor,
-        pred_scores: torch.Tensor,
-        gt_boxes: torch.Tensor,
-        gt_labels: torch.Tensor,
-    ) -> Assignment:
-        if pred_boxes.ndim != 2 or pred_boxes.shape[-1] != 4:
-            raise ValueError("pred_boxes must have shape [N,4]")
-        if pred_scores.ndim != 2 or pred_scores.shape[0] != pred_boxes.shape[0]:
-            raise ValueError("pred_scores must have shape [N,C]")
-        if gt_boxes.numel() == 0:
-            return Assignment(
-                foreground=torch.zeros(pred_boxes.shape[0], dtype=torch.bool, device=pred_boxes.device),
-                labels=torch.full((pred_boxes.shape[0],), -1, dtype=torch.long, device=pred_boxes.device),
-                boxes=torch.zeros_like(pred_boxes),
-                target_scores=torch.zeros_like(pred_scores),
-                matched_gt=torch.full((pred_boxes.shape[0],), -1, dtype=torch.long, device=pred_boxes.device),
-            )
-        if gt_boxes.ndim != 2 or gt_boxes.shape[-1] != 4 or gt_labels.ndim != 1 or gt_labels.shape[0] != gt_boxes.shape[0]:
-            raise ValueError("gt boxes and labels have incompatible shapes")
-        if (gt_labels < 0).any() or (gt_labels >= pred_scores.shape[1]).any():
-            raise ValueError("gt label is outside the detector class range")
+    @torch.no_grad()
+    def __call__(self, pred_scores: torch.Tensor, pred_boxes: torch.Tensor, points: torch.Tensor, gt_labels: torch.Tensor, gt_boxes: torch.Tensor, mask_gt: torch.Tensor | None = None) -> Assignment:
+        if pred_scores.ndim != 3 or pred_boxes.ndim != 3 or gt_labels.ndim != 3 or gt_boxes.ndim != 3:
+            raise ValueError("TAL expects [B,A,C], [B,A,4], [B,M,1], [B,M,4]")
+        batch, anchors, classes = pred_scores.shape
+        max_gt = gt_boxes.shape[1]
+        if mask_gt is None:
+            mask_gt = torch.ones((batch, max_gt, 1), dtype=torch.bool, device=gt_boxes.device)
+        if max_gt == 0:
+            return Assignment(torch.full((batch, anchors), -1, dtype=torch.long, device=gt_boxes.device), torch.zeros_like(pred_boxes), torch.zeros_like(pred_scores), torch.zeros((batch, anchors), dtype=torch.bool, device=gt_boxes.device), torch.full((batch, anchors), -1, dtype=torch.long, device=gt_boxes.device))
+        in_gts = self.select_candidates_in_gts(points, gt_boxes, mask_gt)
+        overlaps = torch.zeros((batch, max_gt, anchors), dtype=pred_boxes.dtype, device=pred_boxes.device)
+        scores = torch.zeros_like(overlaps)
+        for b in range(batch):
+            for g in range(max_gt):
+                if not mask_gt[b, g, 0]:
+                    continue
+                scores[b, g] = pred_scores[b, :, int(gt_labels[b, g, 0])]
+                overlaps[b, g] = bbox_ciou(pred_boxes[b], gt_boxes[b, g].expand_as(pred_boxes[b])).clamp_min(0)
+        alignment = scores.clamp_min(0).pow(self.alpha) * overlaps.pow(self.beta)
+        alignment = alignment.masked_fill(~in_gts, 0)
+        k = min(self.top_k, anchors)
+        _, top_indices = alignment.topk(k, dim=-1)
+        mask_pos = torch.zeros_like(alignment, dtype=torch.int8)
+        mask_pos.scatter_add_(-1, top_indices, torch.ones_like(top_indices, dtype=torch.int8))
+        mask_pos.masked_fill_(mask_pos > 1, 0)
+        valid_gt = mask_gt.squeeze(-1)[:, :, None].expand(-1, max_gt, anchors)
+        mask_pos = mask_pos.to(alignment.dtype) * in_gts.to(alignment.dtype) * valid_gt.to(alignment.dtype)
+        fg_count = mask_pos.sum(dim=1)
+        if fg_count.max() > 1:
+            best_gt = overlaps.argmax(dim=1)
+            keep = torch.zeros_like(mask_pos)
+            keep.scatter_(1, best_gt[:, None], 1)
+            mask_pos = torch.where(fg_count[:, None] > 1, keep, mask_pos)
+        foreground = mask_pos.sum(dim=1).bool()
+        matched_gt = mask_pos.argmax(dim=1)
+        labels = gt_labels.squeeze(-1).gather(1, matched_gt)
+        target_boxes = gt_boxes.gather(1, matched_gt[..., None].expand(-1, -1, 4))
+        one_hot = torch.zeros_like(pred_scores)
+        one_hot.scatter_(2, labels[..., None], 1)
+        one_hot *= foreground[..., None].to(one_hot.dtype)
+        normalized = (alignment * mask_pos)
+        max_alignment = normalized.amax(dim=-1, keepdim=True)
+        max_overlap = (overlaps * mask_pos).amax(dim=-1, keepdim=True)
+        quality = (normalized * max_overlap / (max_alignment + self.eps)).amax(dim=1)
+        return Assignment(labels, target_boxes, one_hot * quality[..., None], foreground, matched_gt)
 
-        ious = box_iou(pred_boxes, gt_boxes)
-        class_scores = pred_scores[:, gt_labels]
-        alignment = class_scores.clamp_min(1e-8).pow(self.alpha) * ious.clamp_min(0).pow(self.beta)
-        inside = (
-            (points[:, None, 0] >= gt_boxes[None, :, 0])
-            & (points[:, None, 0] <= gt_boxes[None, :, 2])
-            & (points[:, None, 1] >= gt_boxes[None, :, 1])
-            & (points[:, None, 1] <= gt_boxes[None, :, 3])
-        )
-        alignment = alignment.masked_fill(~inside, -1.0)
-
-        foreground = torch.zeros(pred_boxes.shape[0], dtype=torch.bool, device=pred_boxes.device)
-        matched_gt = torch.full((pred_boxes.shape[0],), -1, dtype=torch.long, device=pred_boxes.device)
-        matched_metric = torch.full((pred_boxes.shape[0],), -1.0, device=pred_boxes.device)
-        for gt_index in range(gt_boxes.shape[0]):
-            candidate_metric = alignment[:, gt_index]
-            valid = candidate_metric >= 0
-            if not valid.any():
-                continue
-            candidate_indices = torch.where(valid)[0]
-            k = min(self.top_k, candidate_indices.numel())
-            values, local_indices = torch.topk(candidate_metric[candidate_indices], k=k)
-            for value, local_index in zip(values, local_indices):
-                anchor_index = candidate_indices[local_index]
-                if value > matched_metric[anchor_index]:
-                    matched_metric[anchor_index] = value
-                    matched_gt[anchor_index] = gt_index
-                    foreground[anchor_index] = True
-
-        labels = torch.full((pred_boxes.shape[0],), -1, dtype=torch.long, device=pred_boxes.device)
-        boxes = torch.zeros_like(pred_boxes)
-        target_scores = torch.zeros_like(pred_scores)
-        if foreground.any():
-            indices = torch.where(foreground)[0]
-            gt_indices = matched_gt[indices]
-            labels[indices] = gt_labels[gt_indices]
-            boxes[indices] = gt_boxes[gt_indices]
-            target_scores[indices, labels[indices]] = (
-                ious[indices, gt_indices].clamp(0.0, 1.0) * pred_scores[indices, labels[indices]].detach().clamp(0.0, 1.0)
-            ).clamp_min(1e-3)
-        return Assignment(foreground, labels, boxes, target_scores, matched_gt)
+    @staticmethod
+    def select_candidates_in_gts(points: torch.Tensor, gt_boxes: torch.Tensor, mask_gt: torch.Tensor) -> torch.Tensor:
+        boxes = gt_boxes.clone()
+        wh = boxes[..., 2:] - boxes[..., :2]
+        small = wh < 8.0
+        center = (boxes[..., :2] + boxes[..., 2:]) / 2
+        adjusted_wh = torch.where(small & mask_gt.bool(), torch.full_like(wh, 16.0), wh)
+        boxes = torch.cat((center - adjusted_wh / 2, center + adjusted_wh / 2), dim=-1)
+        deltas = torch.cat((points[None, None] - boxes[..., None, :2], boxes[..., None, 2:] - points[None, None]), dim=-1)
+        return deltas.amin(dim=-1).gt(1e-9)

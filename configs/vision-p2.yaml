@@ -2,7 +2,7 @@ seed: 42
 
 vision:
   reference: ultralytics-v8.4.0
-  architecture: yolov8n
+  architecture: yolov8n-p2
   input_size: 640
   num_classes: 6
   class_names: [crazing, inclusion, patches, pitted_surface, rolled-in_scale, scratches]
@@ -11,9 +11,8 @@ vision:
   max_detections: 300
 
 vision_init:
-  mode: yolov8_transfer
-  checkpoint: weights/yolov8n.pt
-  mapping: configs/yolov8n_to_detection.json
+  mode: project_base
+  checkpoint: weights/vision_base.pt
 
 data:
   manifest: data/neu_det/train.jsonl
@@ -21,7 +20,7 @@ data:
 
 training:
   stage: baseline
-  output_dir: outputs/vision-yolov8n
+  output_dir: outputs/vision-yolov8n-p2
   batch_size: 4
   gradient_accumulation: 16
   num_workers: 0
@@ -36,4 +35,3 @@ training:
   grad_clip: 1.0
   ema_decay: 0.9999
   validation_interval: 1
-  device: cpu
